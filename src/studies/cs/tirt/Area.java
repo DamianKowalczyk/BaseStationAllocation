@@ -1,6 +1,11 @@
 package studies.cs.tirt;
 
 public class Area {
+	
+	private int areaLengthX;
+	private int areaLengthY;
+	
+	
 
 	/**
 	 * @param args
