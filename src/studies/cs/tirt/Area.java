@@ -3,10 +3,12 @@ import java.util.*;
 
 public class Area {
 	
-	private int areaLengthX;
-	private int areaLengthY;
+	private float areaLengthX;
+	private float areaLengthY;
 	
 	private Set<BaseTransceiverStation> baseStations = new TreeSet<BaseTransceiverStation>();
+	private Set<Terminal> terminals = new TreeSet<Terminal>();
+	
 	
 	
 

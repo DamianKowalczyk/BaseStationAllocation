@@ -2,14 +2,14 @@ package studies.cs.tirt;
 
 public class BaseTransceiverStation {
 	
-	private int x;
-	private int y;
+	private float x;
+	private float y;
 	
-	private int signalStrength;
+	private float signalStrength;
 	private int numberAllowedTerminals;
 	
 	
-	public BaseTransceiverStation(int x, int y, int signalStrength,
+	public BaseTransceiverStation(float x, float y, float signalStrength,
 			int numberAllowedTerminals) {
 		super();
 		this.x = x;
@@ -22,32 +22,40 @@ public class BaseTransceiverStation {
 		return (o instanceof BaseTransceiverStation) && 
 				(x == ((BaseTransceiverStation) o).getX() && y == ((BaseTransceiverStation) o).getY());	// two  base stations are equal when are in the same place	
 	}
+
 	
-	public int getX() {
+	/* ********** getters and setters ****************	*/	
+	
+	public float getX() {
 		return x;
 	}
-	public void setX(int x) {
+
+	public void setX(float x) {
 		this.x = x;
 	}
-	public int getY() {
+
+	public float getY() {
 		return y;
 	}
-	public void setY(int y) {
+
+	public void setY(float y) {
 		this.y = y;
 	}
-	public int getSignalStrength() {
+
+	public float getSignalStrength() {
 		return signalStrength;
 	}
-	public void setSignalStrength(int signalStrength) {
+
+	public void setSignalStrength(float signalStrength) {
 		this.signalStrength = signalStrength;
 	}
+
 	public int getNumberAllowedTerminals() {
 		return numberAllowedTerminals;
 	}
+
 	public void setNumberAllowedTerminals(int numberAllowedTerminals) {
 		this.numberAllowedTerminals = numberAllowedTerminals;
-	}
-	
-	
+	}	
 
 }

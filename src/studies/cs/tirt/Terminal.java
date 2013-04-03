@@ -2,33 +2,40 @@ package studies.cs.tirt;
 
 public class Terminal {
 	
-	private int x;
-	private int y;
+	private float x;
+	private float y;
 	
 	private BaseTransceiverStation bts = null;
 	
 	
 
-	public Terminal(int x, int y, BaseTransceiverStation bts) {
+	public Terminal(float x, float y, BaseTransceiverStation bts) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.bts = bts;
 	}
+	
+	public boolean equals(Object o) {
+		return (o instanceof Terminal) && 
+				(x == ((Terminal) o).getX() && y == ((Terminal) o).getY());	// two  terminals are equal when are in the same place	
+	}
 
-	public int getX() {
+	
+/* ********** getters and setters ****************	*/
+	public float getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 
@@ -39,9 +46,5 @@ public class Terminal {
 	public void setBts(BaseTransceiverStation bts) {
 		this.bts = bts;
 	}
-	
-	
-	
-	
 
 }
