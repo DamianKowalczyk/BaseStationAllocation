@@ -18,7 +18,10 @@ public class BaseTransceiverStation {
 		this.numberAllowedTerminals = numberAllowedTerminals;
 	}
 	
-	
+	public boolean equals(Object o){
+		return (o instanceof BaseTransceiverStation) && 
+				(x == ((BaseTransceiverStation) o).getX() && y == ((BaseTransceiverStation) o).getY());	// two  base stations are equal when are in the same place	
+	}
 	
 	public int getX() {
 		return x;

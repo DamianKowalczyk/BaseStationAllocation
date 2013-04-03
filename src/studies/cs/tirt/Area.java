@@ -1,9 +1,12 @@
 package studies.cs.tirt;
+import java.util.*;
 
 public class Area {
 	
 	private int areaLengthX;
 	private int areaLengthY;
+	
+	private Set<BaseTransceiverStation> baseStations = new TreeSet<BaseTransceiverStation>();
 	
 	
 
@@ -15,6 +18,9 @@ public class Area {
 
 	}
 	
+	public void arrangeBTS(){
+		
+	}
 	
 
 }
