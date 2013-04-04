@@ -42,16 +42,24 @@ public class Area {
 	
 	//
 	private void arangeNTerminalsInArea(float x, float y, float radius, int N) {
-		for(int i=0; i<N; i++){			
+		int addedElements = 0;
+		while(addedElements<N) {			
 			float terminalX = x + (randomSign()* rand.nextFloat() * radius);
 			float terminalY = y + (randomSign()* rand.nextFloat() * radius);
-			terminals.add(new Terminal(terminalX, terminalY));
-		}
-		
+			if (correctPosition(terminalX, terminalY)){
+				terminals.add(new Terminal(terminalX, terminalY));
+				addedElements++;
+			}
+		}		
 	}
 	
 	private float randomSign(){
 		return ((rand.nextInt() % 2) == 0)? 1.0F : -1.0F;	
+	}
+	
+	private boolean correctPosition(float x, float y) {		
+		return (x >= 0.0F) && (x <= areaLengthX) &&
+				(y >= 0.0F) && (y <= areaLengthY);
 	}
 	 
 
