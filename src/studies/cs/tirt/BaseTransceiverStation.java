@@ -1,6 +1,6 @@
 package studies.cs.tirt;
 
-public class BaseTransceiverStation {
+public class BaseTransceiverStation implements Comparable<BaseTransceiverStation> {
 	
 	private float x;
 	private float y;
@@ -57,5 +57,13 @@ public class BaseTransceiverStation {
 	public void setNumberAllowedTerminals(int numberAllowedTerminals) {
 		this.numberAllowedTerminals = numberAllowedTerminals;
 	}	
+	
+	@Override
+	public int compareTo(BaseTransceiverStation o) {
+		double distThis = Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2));
+		double distO = Math.sqrt(Math.pow(o.getX(), 2)+Math.pow(o.getY(), 2));
+		
+		return distThis>distO ? 1 : (distThis==distO ? 0 : -1);
+	}
 
 }
