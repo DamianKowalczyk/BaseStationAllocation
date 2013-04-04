@@ -1,15 +1,17 @@
 package studies.cs.tirt;
 import java.util.*;
 
+import javax.swing.JFrame;
+
 public class Area {
 	
-	private float areaLengthX;
-	private float areaLengthY;
+	private static float areaLengthX = 1500F;
+	private static float areaLengthY = 1000F;
 	
 	private Set<BaseTransceiverStation> baseStations = new TreeSet<BaseTransceiverStation>();
-	private Set<Terminal> terminals = new TreeSet<Terminal>();
+	private Set<Terminal> terminals = new TreeSet<Terminal>();	
 	
-	
+	private Random rand = new Random(47);
 	
 
 	/**
@@ -17,6 +19,9 @@ public class Area {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		GraphicalArea graphArea = new GraphicalArea(areaLengthX, areaLengthY);
+		graphArea.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		graphArea.setVisible(true);
 
 	}
 	
@@ -24,5 +29,39 @@ public class Area {
 		
 	}
 	
+	public void arrangeTerminals(){
+		
+	}
+	
+	/*x and y are the coordinates of one this base stations and distance determines the distance determines site length of hexagon*/
+	private void addBaseStationsOnHoneycomb(float x, float y, float distance) {
+		baseStations.add(new BaseTransceiverStation(x, y, distance, 20));
+		baseStations.add(new BaseTransceiverStation(x+distance, y, distance, 20));
+		
+	}
+	
+	//
+	private void arangeNTerminalsInArea(float x, float y, float radius, int N) {
+		for(int i=0; i<N; i++){			
+			float terminalX = x + (randomSign()* rand.nextFloat() * radius);
+			float terminalY = y + (randomSign()* rand.nextFloat() * radius);
+			terminals.add(new Terminal(terminalX, terminalY));
+		}
+		
+	}
+	
+	private float randomSign(){
+		return ((rand.nextInt() % 2) == 0)? 1.0F : -1.0F;	
+	}
+	 
 
+}
+
+
+class GraphicalArea extends JFrame {
+	 
+	public GraphicalArea(float areaLengthX, float areaLengthY){
+		setSize((int) areaLengthX, (int) areaLengthY);	// create graphical area 
+	}
+	
 }

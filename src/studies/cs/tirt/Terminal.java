@@ -7,12 +7,13 @@ public class Terminal {
 	
 	private BaseTransceiverStation bts = null;
 	
-	
-
-	public Terminal(float x, float y, BaseTransceiverStation bts) {
-		super();
+	public Terminal(float x, float y){
 		this.x = x;
 		this.y = y;
+	}
+
+	public Terminal(float x, float y, BaseTransceiverStation bts) {
+		this(x,y);
 		this.bts = bts;
 	}
 	
