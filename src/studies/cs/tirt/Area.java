@@ -1,4 +1,5 @@
 package studies.cs.tirt;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,6 +28,7 @@ public class Area {
 		
 		Area area = new Area();
 		area.arrangeTerminals();
+		area.arrangeBTS();
 		
 		// TODO Auto-generated method stub
 		EventQueue.invokeLater(new Runnable() {			
@@ -41,15 +43,15 @@ public class Area {
 	}
 	
 	public void arrangeBTS(){
-		
+		arrangeNBaseStations(300, 350, 350, 30);
 	}
 	
 	public void arrangeTerminals(){
-		arangeNTerminalsInAreaCircle(200, 200, 100, 200);
-		arangeNTerminalsInAreaCircle(500, 400, 150, 350);
+		arangeNTerminalsInAreaCircle(200, 100, 100, 200);
+		arangeNTerminalsInAreaCircle(500, 120, 150, 350);
 		
-		arangeNTerminalsInAreaSquare(200, 800, 100, 100);
-		arangeNTerminalsInAreaSquare(500, 700, 150, 200);
+		arangeNTerminalsInAreaSquare(200, 450, 100, 100);
+		arangeNTerminalsInAreaSquare(500, 500, 150, 200);
 	}
 	
 	/*x and y are the coordinates of one this base stations and distance determines the distance determines site length of hexagon*/
@@ -58,8 +60,16 @@ public class Area {
 		baseStations.add(new BaseTransceiverStation(x+distance, y, distance, 20));		
 	}*/
 	
-	private void arrangeOneBaseStations(){
-		
+	private void arrangeNBaseStations(float x, float y, float radius, int N){
+		int addedElements = 0;
+		while(addedElements<N) {			
+			float bsX = x + (randomSign()* rand.nextFloat() * radius);
+			float bsY = y + (randomSign()* rand.nextFloat() * radius);
+			if (correctPosition(bsX, bsY)){
+				baseStations.add(new BaseTransceiverStation(bsX, bsY, 50,50));
+				addedElements++;
+			}
+		}
 	}
 	
 	//
@@ -141,6 +151,11 @@ class GraphicalComponents extends JComponent {
 		
 		for (Terminal t : terminals) {
 			g2.draw(new Rectangle2D.Float(t.getX(), t.getY(), 3,3));
+		}
+		
+		g2.setPaint(Color.RED);
+		for (BaseTransceiverStation b : baseStations) {			
+			g2.draw(new Rectangle2D.Float(b.getX(), b.getY(), 5,10));
 		}
 		/*Rectangle2D rect = new Rectangle2D.Float(100F, 100F, 10, 10);
 		g2.draw(rect);	*/	
