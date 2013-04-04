@@ -1,6 +1,6 @@
 package studies.cs.tirt;
 
-public class Terminal {
+public class Terminal implements Comparable<Terminal> {
 	
 	private float x;
 	private float y;
@@ -46,6 +46,14 @@ public class Terminal {
 
 	public void setBts(BaseTransceiverStation bts) {
 		this.bts = bts;
+	}	
+
+	@Override
+	public int compareTo(Terminal o) {
+		double distThis = Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2));
+		double distO = Math.sqrt(Math.pow(o.getX(), 2)+Math.pow(o.getY(), 2));
+		
+		return distThis>distO ? 1 : (distThis==distO ? 0 : -1);
 	}
 
 }
