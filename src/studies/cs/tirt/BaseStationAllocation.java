@@ -3,7 +3,9 @@ package studies.cs.tirt;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,12 +17,20 @@ import java.awt.GridLayout;
 import javax.swing.JSplitPane;
 
 import java.awt.Button;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.geom.Rectangle2D;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.swing.SwingConstants;
 
 public class BaseStationAllocation extends JFrame {
@@ -98,29 +108,29 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblNewLabel.gridy = 1;
 		ctrPanel.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JRadioButton rdbtnAlgorithm = new JRadioButton("Algorithm1");
-		rdbtnAlgorithm.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		GridBagConstraints gbc_rdbtnAlgorithm = new GridBagConstraints();
-		gbc_rdbtnAlgorithm.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnAlgorithm.gridx = 0;
-		gbc_rdbtnAlgorithm.gridy = 3;
-		ctrPanel.add(rdbtnAlgorithm, gbc_rdbtnAlgorithm);
-		
-		JRadioButton rdbtnAlgorithm_1 = new JRadioButton("Algorithm2");
+		JRadioButton rdbtnAlgorithm_1 = new JRadioButton("Algorithm1");
 		rdbtnAlgorithm_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_rdbtnAlgorithm_1 = new GridBagConstraints();
 		gbc_rdbtnAlgorithm_1.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnAlgorithm_1.gridx = 0;
-		gbc_rdbtnAlgorithm_1.gridy = 4;
+		gbc_rdbtnAlgorithm_1.gridy = 3;
 		ctrPanel.add(rdbtnAlgorithm_1, gbc_rdbtnAlgorithm_1);
 		
-		JRadioButton rdbtnAlgorithm_2 = new JRadioButton("Algorithm3");
+		JRadioButton rdbtnAlgorithm_2 = new JRadioButton("Algorithm2");
 		rdbtnAlgorithm_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_rdbtnAlgorithm_2 = new GridBagConstraints();
 		gbc_rdbtnAlgorithm_2.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnAlgorithm_2.gridx = 0;
-		gbc_rdbtnAlgorithm_2.gridy = 5;
+		gbc_rdbtnAlgorithm_2.gridy = 4;
 		ctrPanel.add(rdbtnAlgorithm_2, gbc_rdbtnAlgorithm_2);
+		
+		JRadioButton rdbtnAlgorithm_3 = new JRadioButton("Algorithm3");
+		rdbtnAlgorithm_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		GridBagConstraints gbc_rdbtnAlgorithm_3 = new GridBagConstraints();
+		gbc_rdbtnAlgorithm_3.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnAlgorithm_3.gridx = 0;
+		gbc_rdbtnAlgorithm_3.gridy = 5;
+		ctrPanel.add(rdbtnAlgorithm_3, gbc_rdbtnAlgorithm_3);
 		
 		JLabel lblRating = new JLabel("Rating:");
 		lblRating.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -164,5 +174,120 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 11;
 		ctrPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		//Group the radio buttons.
+	    ButtonGroup group = new ButtonGroup();
+	    group.add(rdbtnAlgorithm_1);
+	    group.add(rdbtnAlgorithm_2);
+	    group.add(rdbtnAlgorithm_3);
+	   		
+		areaPanel.setLayout(new GridLayout(1,1));
+		Area cityArea = new Area();
+		areaPanel.add(cityArea);		
+	}	
+	
+	class Area extends JComponent{
+		
+		private float areaLengthX = 1500F;
+		private float areaLengthY = 1000F;
+		
+		private Set<BaseTransceiverStation> baseStations = new TreeSet<BaseTransceiverStation>();
+		private Set<Terminal> terminals = new TreeSet<Terminal>();	
+		
+		private Random rand = new Random(47);
+		
+		public Area() {
+			arrangeTerminals();
+			arrangeBTS();
+		}
+		
+		public Area(float areaLengthX, float areaLengthY) {
+			this();
+			this.areaLengthX = areaLengthX;
+			this.areaLengthY = areaLengthY;
+		}
+		
+		public void arrangeBTS(){
+			arrangeNBaseStations(300, 350, 350, 15);
+		}
+		
+		public void arrangeTerminals(){
+			arangeNTerminalsInAreaCircle(200, 100, 100, 200);
+			arangeNTerminalsInAreaCircle(500, 120, 150, 350);
+			
+			arangeNTerminalsInAreaSquare(200, 450, 100, 100);
+			arangeNTerminalsInAreaSquare(500, 500, 150, 200);
+		}	
+		
+		private void arrangeNBaseStations(float x, float y, float radius, int N){
+			int addedElements = 0;
+			while(addedElements<N) {			
+				float bsX = x + (randomSign()* rand.nextFloat() * radius);
+				float bsY = y + (randomSign()* rand.nextFloat() * radius);
+				if (correctPosition(bsX, bsY)){
+					baseStations.add(new BaseTransceiverStation(bsX, bsY, 50,50));
+					addedElements++;
+				}
+			}
+		}
+		
+		//
+		private void arangeNTerminalsInAreaSquare(float x, float y, float radius, int N) {
+			int addedElements = 0;
+			while(addedElements<N) {			
+				float terminalX = x + (randomSign()* rand.nextFloat() * radius);
+				float terminalY = y + (randomSign()* rand.nextFloat() * radius);
+				if (correctPosition(terminalX, terminalY)){
+					terminals.add(new Terminal(terminalX, terminalY));
+					addedElements++;
+				}
+			}		
+		}
+		
+		private void arangeNTerminalsInAreaCircle(float x, float y, float radius, int N) {
+			int i = 0;
+			int addedElements = 0;
+			while(addedElements<N) {			
+				float terminalX = x + (randomSign()* rand.nextFloat() * radius);				
+				float terminalY = y +  (randomSign() * rand.nextFloat() * 
+						(float) Math.sqrt(Math.pow(radius, 2)-Math.pow(terminalX-x, 2))); // normalization y value (it couldn't be bigger than this radical) to get a circle
+				if (correctPosition(terminalX, terminalY)){
+					terminals.add(new Terminal(terminalX, terminalY));
+					addedElements++;
+				}
+			}		
+		}
+		
+		private float randomSign(){
+			return ((rand.nextInt() % 2) == 0)? 1.0F : -1.0F;	
+		}
+		
+		private boolean correctPosition(float x, float y) {		
+			return (x >= 0.0F) && (x <= areaLengthX) &&
+					(y >= 0.0F) && (y <= areaLengthY);
+		}
+
+		public Set<BaseTransceiverStation> getBaseStations() {
+			return baseStations;
+		}
+
+		public Set<Terminal> getTerminals() {
+			return terminals;
+		}
+		
+		public void paintComponent(Graphics g){
+			Graphics2D g2 = (Graphics2D) g;
+					
+			for (Terminal t : terminals) {
+				g2.draw(new Rectangle2D.Float(t.getX(), t.getY(), 3,3));
+			}
+			
+			g2.setPaint(Color.RED);
+			for (BaseTransceiverStation b : baseStations) {			
+				g2.draw(new Rectangle2D.Float(b.getX(), b.getY(), 5,10));
+			}
+			Rectangle2D rect = new Rectangle2D.Float(100F, 100F, 10, 10);
+			g2.draw(rect);		
+		}	
 	}
 }

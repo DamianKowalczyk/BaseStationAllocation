@@ -1,4 +1,4 @@
-/*package studies.cs.tirt;
+package studies.cs.tirt;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -6,12 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.*;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Area extends JComponent{
+public class AreaPrototype {
 	
 	private static float areaLengthX = 1500F;
 	private static float areaLengthY = 1000F;
@@ -21,19 +20,30 @@ public class Area extends JComponent{
 	
 	private Random rand = new Random(47);
 	
-	public Area() {
-		arrangeTerminals();
-		arrangeBTS();
-	}
-	
-	public Area(float areaLengthX, float areaLengthY) {
-		this();
-		this.areaLengthX = areaLengthX;
-		this.areaLengthY = areaLengthY;
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		AreaPrototype area = new AreaPrototype();
+		area.arrangeTerminals();
+		area.arrangeBTS();
+		
+		// TODO Auto-generated method stub
+		EventQueue.invokeLater(new Runnable() {			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				GraphicalArea graphArea = new GraphicalArea(areaLengthX, areaLengthY, baseStations, terminals);
+				graphArea.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				graphArea.setVisible(true);
+			}
+		});
 	}
 	
 	public void arrangeBTS(){
-		arrangeNBaseStations(300, 350, 350, 15);
+		arrangeNBaseStations(300, 350, 350, 30);
 	}
 	
 	public void arrangeTerminals(){
@@ -42,7 +52,13 @@ public class Area extends JComponent{
 		
 		arangeNTerminalsInAreaSquare(200, 450, 100, 100);
 		arangeNTerminalsInAreaSquare(500, 500, 150, 200);
-	}	
+	}
+	
+	/*x and y are the coordinates of one this base stations and distance determines the distance determines site length of hexagon*/
+	/*private void addBaseStationsOnHoneycomb(float x, float y, float distance) {
+		baseStations.add(new BaseTransceiverStation(x, y, distance, 20));
+		baseStations.add(new BaseTransceiverStation(x+distance, y, distance, 20));		
+	}*/
 	
 	private void arrangeNBaseStations(float x, float y, float radius, int N){
 		int addedElements = 0;
@@ -99,10 +115,40 @@ public class Area extends JComponent{
 	public Set<Terminal> getTerminals() {
 		return terminals;
 	}
+}
+
+
+class GraphicalArea extends JFrame {
+	 
+	public GraphicalArea(float areaLengthX, float areaLengthY){
+		setSize((int) areaLengthX, (int) areaLengthY);	// create graphical area		
+	}	
 	
+	public GraphicalArea(float areaLengthX, float areaLengthY, Set<BaseTransceiverStation> baseStations,
+			Set<Terminal> terminals){
+		
+		this(areaLengthX, areaLengthY);
+		add(new GraphicalComponents(baseStations, terminals));
+	}
+	 
+}
+
+class GraphicalComponents extends JComponent {
+	
+	private Set<BaseTransceiverStation> baseStations;
+	private Set<Terminal> terminals;
+	
+	
+	public GraphicalComponents(Set<BaseTransceiverStation> baseStations,
+			Set<Terminal> terminals) {
+		super();
+		this.baseStations = baseStations;
+		this.terminals = terminals;
+	}
+
 	public void paintComponent(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
-				
+		
 		for (Terminal t : terminals) {
 			g2.draw(new Rectangle2D.Float(t.getX(), t.getY(), 3,3));
 		}
@@ -111,7 +157,7 @@ public class Area extends JComponent{
 		for (BaseTransceiverStation b : baseStations) {			
 			g2.draw(new Rectangle2D.Float(b.getX(), b.getY(), 5,10));
 		}
-		Rectangle2D rect = new Rectangle2D.Float(100F, 100F, 10, 10);
-		g2.draw(rect);		
-	}	
-}*/
+		/*Rectangle2D rect = new Rectangle2D.Float(100F, 100F, 10, 10);
+		g2.draw(rect);	*/	
+	}
+}
