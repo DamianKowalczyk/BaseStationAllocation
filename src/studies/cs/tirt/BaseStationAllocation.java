@@ -20,6 +20,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class BaseStationAllocation extends JFrame {
 
@@ -69,10 +71,18 @@ public class BaseStationAllocation extends JFrame {
 		
 		gbcCTR.gridx = 0;
 		gbcCTR.gridy = 0;		
-		gbcCTR.weightx = 0.2;
+		gbcCTR.weightx = 0.1;
 		gbcCTR.weighty = 1.0;
 		gbcCTR.fill = GridBagConstraints.BOTH;
 		contentPane.add(ctrPanel, gbcCTR);		
+		
+		gbcArea.gridx = 1;
+		gbcArea.gridy = 0;
+		gbcArea.weightx = 0.9;
+		gbcArea.weighty = 1.0;
+		gbcArea.fill = GridBagConstraints.BOTH;
+		contentPane.add(areaPanel, gbcArea);		
+		
 		GridBagLayout gbl_ctrPanel = new GridBagLayout();
 		gbl_ctrPanel.columnWidths = new int[]{0, 0, 0};
 		gbl_ctrPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -81,34 +91,39 @@ public class BaseStationAllocation extends JFrame {
 		ctrPanel.setLayout(gbl_ctrPanel);
 		
 		JLabel lblNewLabel = new JLabel("Choosen algorithm:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.insets = new Insets(0, 7, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 1;
 		ctrPanel.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JRadioButton rdbtnAlgorithm = new JRadioButton("Algorithm1");
+		rdbtnAlgorithm.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_rdbtnAlgorithm = new GridBagConstraints();
 		gbc_rdbtnAlgorithm.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnAlgorithm.gridx = 0;
-		gbc_rdbtnAlgorithm.gridy = 2;
+		gbc_rdbtnAlgorithm.gridy = 3;
 		ctrPanel.add(rdbtnAlgorithm, gbc_rdbtnAlgorithm);
 		
 		JRadioButton rdbtnAlgorithm_1 = new JRadioButton("Algorithm2");
+		rdbtnAlgorithm_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_rdbtnAlgorithm_1 = new GridBagConstraints();
 		gbc_rdbtnAlgorithm_1.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnAlgorithm_1.gridx = 0;
-		gbc_rdbtnAlgorithm_1.gridy = 3;
+		gbc_rdbtnAlgorithm_1.gridy = 4;
 		ctrPanel.add(rdbtnAlgorithm_1, gbc_rdbtnAlgorithm_1);
 		
 		JRadioButton rdbtnAlgorithm_2 = new JRadioButton("Algorithm3");
+		rdbtnAlgorithm_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_rdbtnAlgorithm_2 = new GridBagConstraints();
 		gbc_rdbtnAlgorithm_2.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnAlgorithm_2.gridx = 0;
-		gbc_rdbtnAlgorithm_2.gridy = 4;
+		gbc_rdbtnAlgorithm_2.gridy = 5;
 		ctrPanel.add(rdbtnAlgorithm_2, gbc_rdbtnAlgorithm_2);
 		
-		JLabel lblRating = new JLabel("Rating");
+		JLabel lblRating = new JLabel("Rating:");
+		lblRating.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_lblRating = new GridBagConstraints();
 		gbc_lblRating.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRating.gridx = 0;
@@ -116,20 +131,25 @@ public class BaseStationAllocation extends JFrame {
 		ctrPanel.add(lblRating, gbc_lblRating);
 		
 		JLabel lblFirstRanking = new JLabel("first ranking");
+		lblFirstRanking.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblFirstRanking = new GridBagConstraints();
 		gbc_lblFirstRanking.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFirstRanking.gridx = 0;
 		gbc_lblFirstRanking.gridy = 10;
 		ctrPanel.add(lblFirstRanking, gbc_lblFirstRanking);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.ipady = 10;
+		gbc_lblNewLabel_2.ipadx = 20;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 10;
 		ctrPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		JLabel lblSecondRanking = new JLabel("second ranking");
+		lblSecondRanking.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblSecondRanking = new GridBagConstraints();
 		gbc_lblSecondRanking.insets = new Insets(0, 0, 0, 5);
 		gbc_lblSecondRanking.gridx = 0;
@@ -137,18 +157,12 @@ public class BaseStationAllocation extends JFrame {
 		ctrPanel.add(lblSecondRanking, gbc_lblSecondRanking);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.ipady = 10;
+		gbc_lblNewLabel_1.ipadx = 20;
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 11;
 		ctrPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		gbcArea.gridx = 1;
-		gbcArea.gridy = 0;
-		gbcArea.weightx = 0.8;
-		gbcArea.weighty = 1.0;
-		gbcArea.fill = GridBagConstraints.BOTH;
-		contentPane.add(areaPanel, gbcArea);
-		
-		
 	}
 }
