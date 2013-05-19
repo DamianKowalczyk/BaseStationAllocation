@@ -18,6 +18,8 @@ import java.awt.Button;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JRadioButton;
+import javax.swing.JLabel;
 
 public class BaseStationAllocation extends JFrame {
 
@@ -59,18 +61,61 @@ public class BaseStationAllocation extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		GridBagConstraints gbc = new GridBagConstraints();
-
-		GridBagConstraints c = new GridBagConstraints();
+		GridBagConstraints gbcCTR = new GridBagConstraints();
+		GridBagConstraints gbcArea = new GridBagConstraints();
+		
+		JPanel ctrPanel = new JPanel();
+		JPanel areaPanel = new JPanel();
+		
+		gbcCTR.gridx = 0;
+		gbcCTR.gridy = 0;		
+		gbcCTR.weightx = 0.2;
+		gbcCTR.weighty = 1.0;
+		gbcCTR.fill = GridBagConstraints.BOTH;
+		contentPane.add(ctrPanel, gbcCTR);		
+		GridBagLayout gbl_ctrPanel = new GridBagLayout();
+		gbl_ctrPanel.columnWidths = new int[]{0, 0};
+		gbl_ctrPanel.rowHeights = new int[]{0, 0};
+		gbl_ctrPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_ctrPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		ctrPanel.setLayout(gbl_ctrPanel);
+		
+		JLabel lblNewLabel = new JLabel("Choosen algorithm:");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		ctrPanel.add(lblNewLabel, gbc_lblNewLabel);
+		
+		gbcArea.gridx = 1;
+		gbcArea.gridy = 0;
+		gbcArea.weightx = 0.8;
+		gbcArea.weighty = 1.0;
+		gbcArea.fill = GridBagConstraints.BOTH;
+		contentPane.add(areaPanel, gbcArea);
+		
+		/*JRadioButton rdbtnNewRadioButton = new JRadioButton("Algorithm1");
+		ctrPanel.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Algorithm2");
+		ctrPanel.add(rdbtnNewRadioButton_1);
+		
+		JRadioButton rdbtnAlgorithm = new JRadioButton("Algorithm3");
+		ctrPanel.add(rdbtnAlgorithm);*/
+		
+		
+		
+		//contentPane.add(areaPanel, gbc);
+		
+		/*GridBagConstraints c = new GridBagConstraints();
 		JButton button;
 		button = new JButton("Button 1");
 
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.3;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weighty = 1.0;
-		contentPane.add(button, c);
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 0.3;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weighty = 1.0;
+		contentPane.add(button, gbc);
 
 		button = new JButton("Button 2");
 		c.fill = GridBagConstraints.BOTH;
@@ -78,30 +123,7 @@ public class BaseStationAllocation extends JFrame {
 		c.gridx = 1;
 		c.gridy = 0;
 		c.weighty = 1.0;
-		contentPane.add(button, c);
-
-		/*
-		 * Button b1 = new Button("control"); Button b2 = new Button("area");
-		 * 
-		 * JPanel ctrPanel = new JPanel(); JPanel areaPanel = new JPanel();
-		 * 
-		 * gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.3;
-		 * 
-		 * gbc.fill = GridBagConstraints.HORIZONTAL; contentPane.add(b1, gbc);
-		 * //contentPane.add(ctrPanel, gbc);
-		 * 
-		 * 
-		 * gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 0.7; gbc.fill =
-		 * GridBagConstraints.HORIZONTAL; contentPane.add(b2, gbc);
-		 * //contentPane.add(areaPanel, gbc);
-		 */
-		/*
-		 * GridBagConstraints gbc = new GridBagConstraints(); gbc.gridheight =
-		 * 1; gbc.gridwidth = 2; gbc.fill = GridBagConstraints.HORIZONTAL;
-		 * 
-		 * JPanel ctrPanel = new JPanel(); gbc.gridy = 1; gbc.gridx = 1;
-		 * gbc.weightx = 0.3; contentPane.add(ctrPanel, gbc);
-		 */
-
+		contentPane.add(button, c);*/
+		
 	}
 }
