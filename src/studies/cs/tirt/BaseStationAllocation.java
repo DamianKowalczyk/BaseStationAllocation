@@ -203,8 +203,8 @@ public class BaseStationAllocation extends JFrame {
 		public Area() {			
 			arrangeBTS();
 			arrangeTerminals();
-			searchBTSInRangeOfTerminals();
-			printNumberOfTerminalsAutOfRange();
+			searchBTSsInRangeOfTerminals();
+			printTerminalsAutOfRangeNumber();
 		}
 		
 		public Area(float areaLengthX, float areaLengthY) {
@@ -219,7 +219,7 @@ public class BaseStationAllocation extends JFrame {
 		
 		public void arrangeTerminals(){
 			//arangeNTerminalsInAreaCircle(443, 340, 200, 200);
-			arangeNTerminalsInAreaSquare(443, 340, 250, 250);			
+			arangeNTerminalsInSquareArea(443, 340, 250, 250);			
 		}	
 		
 		private void arrangeNBaseStations(float x, float y, float radius, int N){
@@ -227,7 +227,7 @@ public class BaseStationAllocation extends JFrame {
 			while(addedElements<N) {			
 				float bsX = x + (randomSign()* rand.nextFloat() * radius);
 				float bsY = y + (randomSign()* rand.nextFloat() * radius);
-				if (correctPosition(bsX, bsY)){
+				if (isPointInArea(bsX, bsY)){
 					baseStations.add(new BaseTransceiverStation(bsX, bsY));
 					addedElements++;
 				}
@@ -235,26 +235,26 @@ public class BaseStationAllocation extends JFrame {
 		}
 		
 		//
-		private void arangeNTerminalsInAreaSquare(float x, float y, float radius, int N) {
+		private void arangeNTerminalsInSquareArea(float x, float y, float radius, int N) {
 			int addedElements = 0;
 			while(addedElements<N) {			
 				float terminalX = x + (randomSign()* rand.nextFloat() * radius);
 				float terminalY = y + (randomSign()* rand.nextFloat() * radius);
-				if (correctPosition(terminalX, terminalY)){
+				if (isPointInArea(terminalX, terminalY)){
 					terminals.add(new Terminal(terminalX, terminalY));
 					addedElements++;
 				}
 			}		
 		}
 		
-		private void arangeNTerminalsInAreaCircle(float x, float y, float radius, int N) {
+		private void arangeNTerminalsInCircleArea(float x, float y, float radius, int N) {
 			int i = 0;
 			int addedElements = 0;
 			while(addedElements<N) {			
 				float terminalX = x + (randomSign()* rand.nextFloat() * radius);				
 				float terminalY = y +  (randomSign() * rand.nextFloat() * 
 						(float) Math.sqrt(Math.pow(radius, 2)-Math.pow(terminalX-x, 2))); // normalization y value (it couldn't be bigger than this radical) to get a circle
-				if (correctPosition(terminalX, terminalY)){
+				if (isPointInArea(terminalX, terminalY)){
 					terminals.add(new Terminal(terminalX, terminalY));
 					addedElements++;
 				}
@@ -265,7 +265,7 @@ public class BaseStationAllocation extends JFrame {
 			return ((rand.nextInt() % 2) == 0)? 1.0F : -1.0F;	
 		}
 		
-		private boolean correctPosition(float x, float y) {		
+		private boolean isPointInArea(float x, float y) {		
 			return (x >= 0.0F) && (x <= areaLengthX) &&
 					(y >= 0.0F) && (y <= areaLengthY);
 		}
@@ -301,7 +301,7 @@ public class BaseStationAllocation extends JFrame {
 			
 		}	
 		
-		private void searchBTSInRangeOfTerminals() {
+		private void searchBTSsInRangeOfTerminals() {
 			for (Terminal t : terminals) {
 				for (BaseTransceiverStation bts : baseStations) {
 					if (calculateDistance(bts.getX(), bts.getY(), t.getX(), t.getY())<=bts.getSignalStrength()){
@@ -324,7 +324,7 @@ public class BaseStationAllocation extends JFrame {
 			}			
 		}
 		
-		private void printNumberOfTerminalsAutOfRange() {
+		private void printTerminalsAutOfRangeNumber() {
 			countTerminalsAutOfRange();
 			numberOfTerminalsAutOfRangeLabel.setText(""+numberOfTerminalsAutOfRange);
 		}
@@ -332,10 +332,15 @@ public class BaseStationAllocation extends JFrame {
 		private void colorTerminals(Graphics2D g2) {
 			for (BaseTransceiverStation bts : baseStations) {
 				g2.setColor(bts.getColor());
-				for (Terminal t : bts.) {
-					
+				for (Terminal t : bts.getTerminals()) {
+					g2.fill(t.getRectOfThisTerminal());
 				}
 			}
+		}
+		
+		// it will allocate max number of nearby terminals for each terminal 
+		public void bruteAllocation(){
+			//for 
 		}
 	}
 }

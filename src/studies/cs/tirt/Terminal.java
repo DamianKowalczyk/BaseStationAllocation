@@ -9,7 +9,7 @@ public class Terminal implements Comparable<Terminal> {
 	private float y;
 
 	private BaseTransceiverStation bts = null;
-	private ArrayList<BaseTransceiverStation> BTSInRange = new ArrayList<BaseTransceiverStation>();
+	private ArrayList<BaseTransceiverStation> btsInRange = new ArrayList<BaseTransceiverStation>();
 	
 	private Rectangle2D rectOfThisTerminal;
 
@@ -49,7 +49,7 @@ public class Terminal implements Comparable<Terminal> {
 	}
 
 	public ArrayList<BaseTransceiverStation> getBTSInRange() {
-		return BTSInRange;
+		return btsInRange;
 	}
 
 	public Rectangle2D getRectOfThisTerminal() {

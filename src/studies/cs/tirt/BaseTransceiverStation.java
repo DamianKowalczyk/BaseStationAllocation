@@ -14,8 +14,8 @@ public class BaseTransceiverStation implements
 	private float signalStrength;
 	private int numberOfAllowedTerminals;
 	private Color color;
-
-	private ArrayList<Terminal> operatedTerminals = new ArrayList<>();
+	
+	private ArrayList<Terminal> connectedTerminals = new ArrayList<>();
 
 	private static Random rand = new Random(13);
 	
@@ -69,11 +69,11 @@ public class BaseTransceiverStation implements
 	}
 
 	public ArrayList<Terminal> getTerminals() {
-		return operatedTerminals;
+		return connectedTerminals;
 	}
 
 	public void setTerminals(ArrayList<Terminal> terminals) {
-		this.operatedTerminals = terminals;
+		this.connectedTerminals = terminals;
 	}
 
 	public Color getColor() {
