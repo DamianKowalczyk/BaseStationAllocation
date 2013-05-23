@@ -3,6 +3,8 @@ package studies.cs.tirt;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class BaseTransceiverStation implements
 		Comparable<BaseTransceiverStation> {
@@ -10,11 +12,13 @@ public class BaseTransceiverStation implements
 	// position
 	private float x;
 	private float y;
+	private Point point;
 
 	private float signalStrength;
 	private int numberOfAllowedTerminals;
 	private Color color;
 	
+	private SortedSet<Terminal> terminalsInRange = new TreeSet<Terminal>();
 	private ArrayList<Terminal> connectedTerminals = new ArrayList<>();
 
 	private static Random rand = new Random(13);
@@ -23,6 +27,7 @@ public class BaseTransceiverStation implements
 		super();
 		this.x = x;
 		this.y = y;
+		point = new Point(x, y);
 		this.signalStrength = 60.0F + rand.nextFloat() * 20.0f;
 		this.numberOfAllowedTerminals = (int) (10 + rand.nextFloat() * 6);
 		this.color = Colors.getColor((int) (rand.nextFloat() * 11));
@@ -68,12 +73,20 @@ public class BaseTransceiverStation implements
 		return numberOfAllowedTerminals;
 	}
 
-	public ArrayList<Terminal> getTerminals() {
+	public ArrayList<Terminal> getConnectedTerminals() {
 		return connectedTerminals;
 	}
 
-	public void setTerminals(ArrayList<Terminal> terminals) {
+	public void setConnectedTerminals(ArrayList<Terminal> terminals) {
 		this.connectedTerminals = terminals;
+	}	
+
+	public SortedSet<Terminal> getTerminalsInRange() {
+		return terminalsInRange;
+	}
+
+	public void setTerminalsInRange(SortedSet<Terminal> terminalsInRange) {
+		this.terminalsInRange = terminalsInRange;
 	}
 
 	public Color getColor() {

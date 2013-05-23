@@ -4,62 +4,50 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class Terminal implements Comparable<Terminal> {
-
-	private float x;
-	private float y;
-
-	private BaseTransceiverStation bts = null;
+	
+	private Point terminalPosition;
+	
+	private BaseTransceiverStation allocatedBts = null;
 	private ArrayList<BaseTransceiverStation> btsInRange = new ArrayList<BaseTransceiverStation>();
 	
-	private Rectangle2D rectOfThisTerminal;
+	private Rectangle2D graphicalRectOfThisTerminal;
 
-	public Terminal(float x, float y) {
-		this.x = x;
-		this.y = y;
+	public Terminal(float x, float y) {		
+		terminalPosition = new Point(x, y); 
 	}
 
 	public boolean equals(Object o) {
 		return (o instanceof Terminal)
-				&& (x == ((Terminal) o).getX() && y == ((Terminal) o).getY());
-		// two terminals are equal when are in the same place
+				&& (terminalPosition.equals(((Terminal) o).getTerminalPosition()));		
 	}
 
 	@Override
-	public int compareTo(Terminal o) {
-		double distThis = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-		double distO = Math.sqrt(Math.pow(o.getX(), 2) + Math.pow(o.getY(), 2));
+	public int compareTo(Terminal t) {
+		return getTerminalPosition().compareTo(t.getTerminalPosition());
+	}	
 
-		return distThis > distO ? 1 : (distThis == distO ? 0 : -1);
+	public BaseTransceiverStation getAllocatedBts() {
+		return allocatedBts;
 	}
 
-	public float getX() {
-		return x;
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public BaseTransceiverStation getBts() {
-		return bts;
-	}
-
-	public void setBts(BaseTransceiverStation bts) {
-		this.bts = bts;
+	public void setAllocatedBts(BaseTransceiverStation bts) {
+		this.allocatedBts = bts;
 	}
 
 	public ArrayList<BaseTransceiverStation> getBTSInRange() {
 		return btsInRange;
 	}
 
-	public Rectangle2D getRectOfThisTerminal() {
-		return rectOfThisTerminal;
+	public Rectangle2D getGraphicalRectOfThisTerminal() {
+		return graphicalRectOfThisTerminal;
 	}
 
-	public void setRectOfThisTerminal(Rectangle2D rectOfThisTerminal) {
-		this.rectOfThisTerminal = rectOfThisTerminal;
+	public void setGraphicalRectOfThisTerminal(Rectangle2D rectOfThisTerminal) {
+		this.graphicalRectOfThisTerminal = rectOfThisTerminal;
 	}	
 	
-	
+	public Point getTerminalPosition() {
+		return terminalPosition;
+	}
 
 }

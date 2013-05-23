@@ -295,7 +295,7 @@ public class BaseStationAllocation extends JFrame {
 			g2.setPaint(Color.BLACK);
 			for (Terminal t : terminals) {
 				rect = new Rectangle2D.Float(t.getX(), t.getY(), 3,3);
-				t.setRectOfThisTerminal(rect);
+				t.setGraphicalRectOfThisTerminal(rect);
 				g2.draw(rect);
 			}		
 			
@@ -305,7 +305,7 @@ public class BaseStationAllocation extends JFrame {
 			for (Terminal t : terminals) {
 				for (BaseTransceiverStation bts : baseStations) {
 					if (calculateDistance(bts.getX(), bts.getY(), t.getX(), t.getY())<=bts.getSignalStrength()){
-						bts.getTerminals().add(t);
+						bts.getConnectedTerminals().add(t);
 						t.getBTSInRange().add(bts);
 					}
 				}
@@ -332,8 +332,8 @@ public class BaseStationAllocation extends JFrame {
 		private void colorTerminals(Graphics2D g2) {
 			for (BaseTransceiverStation bts : baseStations) {
 				g2.setColor(bts.getColor());
-				for (Terminal t : bts.getTerminals()) {
-					g2.fill(t.getRectOfThisTerminal());
+				for (Terminal t : bts.getConnectedTerminals()) {
+					g2.fill(t.getGraphicalRectOfThisTerminal());
 				}
 			}
 		}
