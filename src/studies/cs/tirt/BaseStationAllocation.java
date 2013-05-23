@@ -285,16 +285,16 @@ public class BaseStationAllocation extends JFrame {
 			float r;			
 			for (BaseTransceiverStation b : baseStations) {	
 				g2.setPaint(b.getColor());
-				rect = new Rectangle2D.Float(b.getX(), b.getY(), 5,10);
+				rect = new Rectangle2D.Float(b.getBtsPosition().getX(), b.getBtsPosition().getY(), 5,10);
 				g2.draw(rect);
 				g2.fill(rect);
 				r = b.getSignalStrength();				
-				g2.draw(new Ellipse2D.Double(b.getX()-r, b.getY() -r, 2*r, 2*r));
+				g2.draw(new Ellipse2D.Double(b.getBtsPosition().getX()-r, b.getBtsPosition().getY() -r, 2*r, 2*r));
 			}
 			
 			g2.setPaint(Color.BLACK);
 			for (Terminal t : terminals) {
-				rect = new Rectangle2D.Float(t.getX(), t.getY(), 3,3);
+				rect = new Rectangle2D.Float(t.getTerminalPosition().getX(), t.getTerminalPosition().getY(), 3,3);
 				t.setGraphicalRectOfThisTerminal(rect);
 				g2.draw(rect);
 			}		
@@ -304,7 +304,7 @@ public class BaseStationAllocation extends JFrame {
 		private void searchBTSsInRangeOfTerminals() {
 			for (Terminal t : terminals) {
 				for (BaseTransceiverStation bts : baseStations) {
-					if (calculateDistance(bts.getX(), bts.getY(), t.getX(), t.getY())<=bts.getSignalStrength()){
+					if (calculateDistance(bts.getBtsPosition().getX(), bts.getBtsPosition().getY(), t.getTerminalPosition().getX(), t.getTerminalPosition().getY())<=bts.getSignalStrength()){
 						bts.getConnectedTerminals().add(t);
 						t.getBTSInRange().add(bts);
 					}

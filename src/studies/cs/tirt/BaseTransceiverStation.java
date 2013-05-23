@@ -9,10 +9,8 @@ import java.util.TreeSet;
 public class BaseTransceiverStation implements
 		Comparable<BaseTransceiverStation> {
 
-	// position
-	private float x;
-	private float y;
-	private Point point;
+	// position	
+	private Point btsPosition;
 
 	private float signalStrength;
 	private int numberOfAllowedTerminals;
@@ -24,46 +22,32 @@ public class BaseTransceiverStation implements
 	private static Random rand = new Random(13);
 	
 	public BaseTransceiverStation(float x, float y) {
-		super();
-		this.x = x;
-		this.y = y;
-		point = new Point(x, y);
+		super();		
+		btsPosition = new Point(x, y);
 		this.signalStrength = 60.0F + rand.nextFloat() * 20.0f;
 		this.numberOfAllowedTerminals = (int) (10 + rand.nextFloat() * 6);
 		this.color = Colors.getColor((int) (rand.nextFloat() * 11));
 	}
 
-	public BaseTransceiverStation(float x, float y, float signalStrength,
+	/*public BaseTransceiverStation(float x, float y, float signalStrength,
 			int numberAllowedTerminals) {
 		this(x, y);
 		this.signalStrength = signalStrength;
 		this.numberOfAllowedTerminals = numberAllowedTerminals;
-	}
+	}*/
 
 	public boolean equals(Object o) {
 		return (o instanceof BaseTransceiverStation)
-				&& (x == ((BaseTransceiverStation) o).getX() && y == ((BaseTransceiverStation) o)
-						.getY()); 
-			// two base stations are equal when are in the same place
+				&& (btsPosition.equals(((BaseTransceiverStation) o).getBtsPosition()));
 	}
 
 	@Override
 	public int compareTo(BaseTransceiverStation o) {
-		double distThis = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-		double distO = Math.sqrt(Math.pow(o.getX(), 2) + Math.pow(o.getY(), 2));
-
-		return distThis > distO ? 1 : (distThis == distO ? 0 : -1);
+		return getBtsPosition().compareTo(o.getBtsPosition());
 	}
 
 	/* ********** getters and setters **************** */
 
-	public float getX() {
-		return x;
-	}
-
-	public float getY() {
-		return y;
-	}
 
 	public float getSignalStrength() {
 		return signalStrength;
@@ -92,5 +76,9 @@ public class BaseTransceiverStation implements
 	public Color getColor() {
 		return color;
 	}
+
+	public Point getBtsPosition() {
+		return btsPosition;
+	}	
 
 }
