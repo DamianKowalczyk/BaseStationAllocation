@@ -304,8 +304,8 @@ public class BaseStationAllocation extends JFrame {
 		private void searchBTSsInRangeOfTerminals() {
 			for (Terminal t : terminals) {
 				for (BaseTransceiverStation bts : baseStations) {
-					if (calculateDistance(bts.getBtsPosition().getX(), bts.getBtsPosition().getY(), t.getTerminalPosition().getX(), t.getTerminalPosition().getY())<=bts.getSignalStrength()){
-						bts.getConnectedTerminals().add(t);
+					if (Point.calculateDistanceBetweenTwoPoints(t.getTerminalPosition(), bts.getBtsPosition())<=bts.getSignalStrength()){
+						bts.getTerminalsInRange().add(t);
 						t.getBTSInRange().add(bts);
 					}
 				}
@@ -340,7 +340,7 @@ public class BaseStationAllocation extends JFrame {
 		
 		// it will allocate max number of nearby terminals for each terminal 
 		public void bruteAllocation(){
-			//for 
+			
 		}
 	}
 }

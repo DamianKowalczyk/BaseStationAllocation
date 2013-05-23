@@ -29,13 +29,6 @@ public class BaseTransceiverStation implements
 		this.color = Colors.getColor((int) (rand.nextFloat() * 11));
 	}
 
-	/*public BaseTransceiverStation(float x, float y, float signalStrength,
-			int numberAllowedTerminals) {
-		this(x, y);
-		this.signalStrength = signalStrength;
-		this.numberOfAllowedTerminals = numberAllowedTerminals;
-	}*/
-
 	public boolean equals(Object o) {
 		return (o instanceof BaseTransceiverStation)
 				&& (btsPosition.equals(((BaseTransceiverStation) o).getBtsPosition()));
@@ -47,7 +40,6 @@ public class BaseTransceiverStation implements
 	}
 
 	/* ********** getters and setters **************** */
-
 
 	public float getSignalStrength() {
 		return signalStrength;
