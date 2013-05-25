@@ -72,5 +72,9 @@ public class BaseTransceiverStation implements
 	public Point getBtsPosition() {
 		return btsPosition;
 	}	
+	
+	public void connectTerminal(Terminal terminal){
+		connectedTerminals.add(terminal);
+	}
 
 }

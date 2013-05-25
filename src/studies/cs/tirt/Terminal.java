@@ -49,5 +49,6 @@ public class Terminal implements Comparable<Terminal> {
 	public Point getTerminalPosition() {
 		return terminalPosition;
 	}
+	
 
 }

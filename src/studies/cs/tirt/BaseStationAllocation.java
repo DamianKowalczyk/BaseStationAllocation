@@ -1,22 +1,16 @@
 package studies.cs.tirt;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.UIManager;
 import java.awt.Toolkit;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.GridLayout;
-import javax.swing.JSplitPane;
 
-import java.awt.Button;
+import java.awt.GridLayout;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -28,6 +22,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Ellipse2D;
+
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -37,7 +32,7 @@ import javax.swing.SwingConstants;
 public class BaseStationAllocation extends JFrame {
 
 	private JPanel contentPane;
-	
+
 	private JLabel numberOfTerminalsAutOfRangeLabel;
 
 	/**
@@ -78,31 +73,33 @@ public class BaseStationAllocation extends JFrame {
 
 		GridBagConstraints gbcCTR = new GridBagConstraints();
 		GridBagConstraints gbcArea = new GridBagConstraints();
-		
+
 		JPanel ctrPanel = new JPanel();
 		JPanel areaPanel = new JPanel();
-		
+
 		gbcCTR.gridx = 0;
-		gbcCTR.gridy = 0;		
+		gbcCTR.gridy = 0;
 		gbcCTR.weightx = 0.1;
 		gbcCTR.weighty = 1.0;
 		gbcCTR.fill = GridBagConstraints.BOTH;
-		contentPane.add(ctrPanel, gbcCTR);		
-		
+		contentPane.add(ctrPanel, gbcCTR);
+
 		gbcArea.gridx = 1;
 		gbcArea.gridy = 0;
 		gbcArea.weightx = 0.9;
 		gbcArea.weighty = 1.0;
 		gbcArea.fill = GridBagConstraints.BOTH;
-		contentPane.add(areaPanel, gbcArea);		
-		
+		contentPane.add(areaPanel, gbcArea);
+
 		GridBagLayout gbl_ctrPanel = new GridBagLayout();
-		gbl_ctrPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_ctrPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_ctrPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_ctrPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_ctrPanel.columnWidths = new int[] { 0, 0, 0 };
+		gbl_ctrPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0 };
+		gbl_ctrPanel.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_ctrPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		ctrPanel.setLayout(gbl_ctrPanel);
-		
+
 		JLabel lblNewLabel = new JLabel("Choosen algorithm:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -110,7 +107,7 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 1;
 		ctrPanel.add(lblNewLabel, gbc_lblNewLabel);
-		
+
 		JRadioButton rdbtnAlgorithm_1 = new JRadioButton("Algorithm1");
 		rdbtnAlgorithm_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_rdbtnAlgorithm_1 = new GridBagConstraints();
@@ -118,7 +115,7 @@ public class BaseStationAllocation extends JFrame {
 		gbc_rdbtnAlgorithm_1.gridx = 0;
 		gbc_rdbtnAlgorithm_1.gridy = 3;
 		ctrPanel.add(rdbtnAlgorithm_1, gbc_rdbtnAlgorithm_1);
-		
+
 		JRadioButton rdbtnAlgorithm_2 = new JRadioButton("Algorithm2");
 		rdbtnAlgorithm_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_rdbtnAlgorithm_2 = new GridBagConstraints();
@@ -126,7 +123,7 @@ public class BaseStationAllocation extends JFrame {
 		gbc_rdbtnAlgorithm_2.gridx = 0;
 		gbc_rdbtnAlgorithm_2.gridy = 4;
 		ctrPanel.add(rdbtnAlgorithm_2, gbc_rdbtnAlgorithm_2);
-		
+
 		JRadioButton rdbtnAlgorithm_3 = new JRadioButton("Algorithm3");
 		rdbtnAlgorithm_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_rdbtnAlgorithm_3 = new GridBagConstraints();
@@ -134,7 +131,7 @@ public class BaseStationAllocation extends JFrame {
 		gbc_rdbtnAlgorithm_3.gridx = 0;
 		gbc_rdbtnAlgorithm_3.gridy = 5;
 		ctrPanel.add(rdbtnAlgorithm_3, gbc_rdbtnAlgorithm_3);
-		
+
 		JLabel lblRating = new JLabel("Rating:");
 		lblRating.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_lblRating = new GridBagConstraints();
@@ -142,7 +139,7 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblRating.gridx = 0;
 		gbc_lblRating.gridy = 8;
 		ctrPanel.add(lblRating, gbc_lblRating);
-		
+
 		JLabel lblFirstRanking = new JLabel("first ranking");
 		lblFirstRanking.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblFirstRanking = new GridBagConstraints();
@@ -150,9 +147,10 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblFirstRanking.gridx = 0;
 		gbc_lblFirstRanking.gridy = 10;
 		ctrPanel.add(lblFirstRanking, gbc_lblFirstRanking);
-		
+
 		numberOfTerminalsAutOfRangeLabel = new JLabel("New label");
-		numberOfTerminalsAutOfRangeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		numberOfTerminalsAutOfRangeLabel
+				.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.ipady = 10;
 		gbc_lblNewLabel_2.ipadx = 20;
@@ -160,7 +158,7 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 10;
 		ctrPanel.add(numberOfTerminalsAutOfRangeLabel, gbc_lblNewLabel_2);
-		
+
 		JLabel lblSecondRanking = new JLabel("second ranking");
 		lblSecondRanking.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblSecondRanking = new GridBagConstraints();
@@ -168,7 +166,7 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblSecondRanking.gridx = 0;
 		gbc_lblSecondRanking.gridy = 11;
 		ctrPanel.add(lblSecondRanking, gbc_lblSecondRanking);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("New label");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -177,97 +175,110 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 11;
 		ctrPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		//Group the radio buttons.
-	    ButtonGroup group = new ButtonGroup();
-	    group.add(rdbtnAlgorithm_1);
-	    group.add(rdbtnAlgorithm_2);
-	    group.add(rdbtnAlgorithm_3);
-	   		
-		areaPanel.setLayout(new GridLayout(1,1));
+
+		// Group the radio buttons.
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnAlgorithm_1);
+		group.add(rdbtnAlgorithm_2);
+		group.add(rdbtnAlgorithm_3);
+
+		areaPanel.setLayout(new GridLayout(1, 1));
 		Area cityArea = new Area();
-		areaPanel.add(cityArea);		
-	}	
-	
-	class Area extends JComponent{
-		
+		areaPanel.add(cityArea);
+	}
+
+	class Area extends JComponent {
+
 		private float areaLengthX = 1000F;
 		private float areaLengthY = 700F;
-		
+
 		private Set<BaseTransceiverStation> baseStations = new TreeSet<BaseTransceiverStation>();
-		private Set<Terminal> terminals = new TreeSet<Terminal>();	
-		
+		private Set<Terminal> terminals = new TreeSet<Terminal>();
+
+		private Set<Terminal> allocatedTerminals = new TreeSet<Terminal>();
+
 		private Random rand = new Random(13);
 		private int numberOfTerminalsAutOfRange;
-		
-		public Area() {			
+
+		public Area() {
 			arrangeBTS();
 			arrangeTerminals();
 			searchBTSsInRangeOfTerminals();
 			printTerminalsAutOfRangeNumber();
 		}
-		
+
 		public Area(float areaLengthX, float areaLengthY) {
 			this();
 			this.areaLengthX = areaLengthX;
 			this.areaLengthY = areaLengthY;
 		}
-		
-		public void arrangeBTS(){
-			arrangeNBaseStations(463, 347, 230, 15);			
+
+		public void arrangeBTS() {
+			arrangeNBaseStations(463, 347, 230, 15);
 		}
-		
-		public void arrangeTerminals(){
-			//arangeNTerminalsInAreaCircle(443, 340, 200, 200);
-			arangeNTerminalsInSquareArea(443, 340, 250, 250);			
-		}	
-		
-		private void arrangeNBaseStations(float x, float y, float radius, int N){
+
+		public void arrangeTerminals() {
+			// arangeNTerminalsInAreaCircle(443, 340, 200, 200);
+			arangeNTerminalsInSquareArea(443, 340, 250, 250);
+		}
+
+		private void arrangeNBaseStations(float x, float y, float radius, int N) {
 			int addedElements = 0;
-			while(addedElements<N) {			
-				float bsX = x + (randomSign()* rand.nextFloat() * radius);
-				float bsY = y + (randomSign()* rand.nextFloat() * radius);
-				if (isPointInArea(bsX, bsY)){
+			while (addedElements < N) {
+				float bsX = x + (randomSign() * rand.nextFloat() * radius);
+				float bsY = y + (randomSign() * rand.nextFloat() * radius);
+				if (isPointInArea(bsX, bsY)) {
 					baseStations.add(new BaseTransceiverStation(bsX, bsY));
 					addedElements++;
 				}
 			}
 		}
-		
+
 		//
-		private void arangeNTerminalsInSquareArea(float x, float y, float radius, int N) {
+		private void arangeNTerminalsInSquareArea(float x, float y,
+				float radius, int N) {
 			int addedElements = 0;
-			while(addedElements<N) {			
-				float terminalX = x + (randomSign()* rand.nextFloat() * radius);
-				float terminalY = y + (randomSign()* rand.nextFloat() * radius);
-				if (isPointInArea(terminalX, terminalY)){
+			while (addedElements < N) {
+				float terminalX = x
+						+ (randomSign() * rand.nextFloat() * radius);
+				float terminalY = y
+						+ (randomSign() * rand.nextFloat() * radius);
+				if (isPointInArea(terminalX, terminalY)) {
 					terminals.add(new Terminal(terminalX, terminalY));
 					addedElements++;
 				}
-			}		
+			}
 		}
-		
-		private void arangeNTerminalsInCircleArea(float x, float y, float radius, int N) {
+
+		private void arangeNTerminalsInCircleArea(float x, float y,
+				float radius, int N) {
 			int i = 0;
 			int addedElements = 0;
-			while(addedElements<N) {			
-				float terminalX = x + (randomSign()* rand.nextFloat() * radius);				
-				float terminalY = y +  (randomSign() * rand.nextFloat() * 
-						(float) Math.sqrt(Math.pow(radius, 2)-Math.pow(terminalX-x, 2))); // normalization y value (it couldn't be bigger than this radical) to get a circle
-				if (isPointInArea(terminalX, terminalY)){
+			while (addedElements < N) {
+				float terminalX = x
+						+ (randomSign() * rand.nextFloat() * radius);
+				float terminalY = y
+						+ (randomSign() * rand.nextFloat() * (float) Math
+								.sqrt(Math.pow(radius, 2)
+										- Math.pow(terminalX - x, 2)));
+				/*
+				 * normalization value (it couldn't be bigger than this radical)
+				 * to get a circle *
+				 */
+				if (isPointInArea(terminalX, terminalY)) {
 					terminals.add(new Terminal(terminalX, terminalY));
 					addedElements++;
 				}
-			}		
+			}
 		}
-		
-		private float randomSign(){
-			return ((rand.nextInt() % 2) == 0)? 1.0F : -1.0F;	
+
+		private float randomSign() {
+			return ((rand.nextInt() % 2) == 0) ? 1.0F : -1.0F;
 		}
-		
-		private boolean isPointInArea(float x, float y) {		
-			return (x >= 0.0F) && (x <= areaLengthX) &&
-					(y >= 0.0F) && (y <= areaLengthY);
+
+		private boolean isPointInArea(float x, float y) {
+			return (x >= 0.0F) && (x <= areaLengthX) && (y >= 0.0F)
+					&& (y <= areaLengthY);
 		}
 
 		public Set<BaseTransceiverStation> getBaseStations() {
@@ -277,58 +288,64 @@ public class BaseStationAllocation extends JFrame {
 		public Set<Terminal> getTerminals() {
 			return terminals;
 		}
-		
-		public void paintComponent(Graphics g){
-			Graphics2D g2 = (Graphics2D) g;			
-			
+
+		public void paintComponent(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g;
+
 			Rectangle2D rect;
-			float r;			
-			for (BaseTransceiverStation b : baseStations) {	
+			float r;
+			for (BaseTransceiverStation b : baseStations) {
 				g2.setPaint(b.getColor());
-				rect = new Rectangle2D.Float(b.getBtsPosition().getX(), b.getBtsPosition().getY(), 5,10);
+				rect = new Rectangle2D.Float(b.getBtsPosition().getX(), b
+						.getBtsPosition().getY(), 5, 10);
 				g2.draw(rect);
 				g2.fill(rect);
-				r = b.getSignalStrength();				
-				g2.draw(new Ellipse2D.Double(b.getBtsPosition().getX()-r, b.getBtsPosition().getY() -r, 2*r, 2*r));
+				r = b.getSignalStrength();
+				g2.draw(new Ellipse2D.Double(b.getBtsPosition().getX() - r, b
+						.getBtsPosition().getY() - r, 2 * r, 2 * r));
 			}
-			
+
 			g2.setPaint(Color.BLACK);
 			for (Terminal t : terminals) {
-				rect = new Rectangle2D.Float(t.getTerminalPosition().getX(), t.getTerminalPosition().getY(), 3,3);
+				rect = new Rectangle2D.Float(t.getTerminalPosition().getX(), t
+						.getTerminalPosition().getY(), 3, 3);
 				t.setGraphicalRectOfThisTerminal(rect);
 				g2.draw(rect);
-			}		
-			
-		}	
-		
+			}
+
+			/*bruteAllocation();
+			colorTerminals(g2);*/
+			colorTerminalsInRangeOfBts(g2);
+
+		}
+
 		private void searchBTSsInRangeOfTerminals() {
 			for (Terminal t : terminals) {
 				for (BaseTransceiverStation bts : baseStations) {
-					if (Point.calculateDistanceBetweenTwoPoints(t.getTerminalPosition(), bts.getBtsPosition())<=bts.getSignalStrength()){
+					if (Point.calculateDistanceBetweenTwoPoints(
+							t.getTerminalPosition(), bts.getBtsPosition()) <= bts
+							.getSignalStrength()) {
 						bts.getTerminalsInRange().add(t);
 						t.getBTSInRange().add(bts);
 					}
 				}
 			}
 		}
-		
-		private float calculateDistance(float x1, float y1, float x2, float y2) {
-			return (float) Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
-		}
-		
+
 		public void countTerminalsAutOfRange() {
-			numberOfTerminalsAutOfRange = 0;	
+			numberOfTerminalsAutOfRange = 0;
 			for (Terminal t : terminals) {
-				if(t.getBTSInRange().isEmpty())
+				if (t.getBTSInRange().isEmpty())
 					numberOfTerminalsAutOfRange++;
-			}			
+			}
 		}
-		
+
 		private void printTerminalsAutOfRangeNumber() {
 			countTerminalsAutOfRange();
-			numberOfTerminalsAutOfRangeLabel.setText(""+numberOfTerminalsAutOfRange);
+			numberOfTerminalsAutOfRangeLabel.setText(""
+					+ numberOfTerminalsAutOfRange);
 		}
-		
+
 		private void colorTerminals(Graphics2D g2) {
 			for (BaseTransceiverStation bts : baseStations) {
 				g2.setColor(bts.getColor());
@@ -338,9 +355,46 @@ public class BaseStationAllocation extends JFrame {
 			}
 		}
 		
-		// it will allocate max number of nearby terminals for each terminal 
-		public void bruteAllocation(){
-			
+		private void colorTerminalsInRangeOfBts(Graphics2D g2){
+			for (BaseTransceiverStation bts : baseStations) {
+				g2.setColor(bts.getColor());
+				for (Terminal t : bts.getTerminalsInRange()) {
+					g2.fill(t.getGraphicalRectOfThisTerminal());
+				}
+			}
 		}
+
+		// it will allocate max number of nearby terminals for each Base Station
+		private void bruteAllocation() {
+			for (BaseTransceiverStation currentBts : baseStations) {
+				allocateMaxNumberTerminalsInRange(currentBts);
+			}
+
+		}
+
+		private void allocateMaxNumberTerminalsInRange(
+				BaseTransceiverStation currentBts) {
+
+			Terminal tmpTerminal;
+			Object[] terminalsInRange = currentBts.getTerminalsInRange()
+					.toArray();
+
+			int index = 0;
+			int numberOfCopiedTerminals = 0;
+
+			while (index < terminalsInRange.length
+					&& numberOfCopiedTerminals < currentBts
+							.getNumberAllowedTerminals()) {
+
+				tmpTerminal = (Terminal) terminalsInRange[index];
+				if (!allocatedTerminals.contains(tmpTerminal)) {
+					currentBts.connectTerminal(tmpTerminal);
+					tmpTerminal.setAllocatedBts(currentBts);
+				}
+
+				index++;
+			}
+		}
+
 	}
 }
