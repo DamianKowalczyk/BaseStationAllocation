@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 public class Area extends JComponent {
 
@@ -23,19 +24,29 @@ public class Area extends JComponent {
 
 	private Random rand = new Random(13);
 	private int numberOfTerminalsAutOfRange;
-
-	public Area() {
+	
+	private JLabel numberOfTerminalsAutOfRangeLabel;
+	
+	
+	public Area() {		
 		arrangeBTS();
 		arrangeTerminals();
 		searchBTSsInRangeOfTerminals();
 		printTerminalsAutOfRangeNumber();
 	}
 
-	public Area(float areaLengthX, float areaLengthY) {
+	/*public Area() {		
+		arrangeBTS();
+		arrangeTerminals();
+		searchBTSsInRangeOfTerminals();
+		printTerminalsAutOfRangeNumber();
+	}*/
+
+	/*public Area(float areaLengthX, float areaLengthY) {
 		this();
 		this.areaLengthX = areaLengthX;
 		this.areaLengthY = areaLengthY;
-	}
+	}*/
 
 	public void arrangeBTS() {
 		arrangeNBaseStations(463, 347, 230, 15);

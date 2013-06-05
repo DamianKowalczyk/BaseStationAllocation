@@ -32,7 +32,6 @@ import javax.swing.SwingConstants;
 public class BaseStationAllocation extends JFrame {
 
 	private JPanel contentPane;
-
 	private JLabel numberOfTerminalsAutOfRangeLabel;
 
 	/**
@@ -60,6 +59,8 @@ public class BaseStationAllocation extends JFrame {
 	 * Create the frame.
 	 */
 	public BaseStationAllocation() {
+		
+		/* create GUI */
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				BaseStationAllocation.class
 						.getResource("/studies/cs/tirt/gui/pictures/BS.png")));
@@ -181,7 +182,9 @@ public class BaseStationAllocation extends JFrame {
 		group.add(rdbtnAlgorithm_1);
 		group.add(rdbtnAlgorithm_2);
 		group.add(rdbtnAlgorithm_3);
-
+	
+		
+		/* Arrange elements into area, and print them  */
 		areaPanel.setLayout(new GridLayout(1, 1));
 		Area cityArea = new Area();
 		areaPanel.add(cityArea);
