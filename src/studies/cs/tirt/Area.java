@@ -32,7 +32,7 @@ public class Area extends JComponent {
 		arrangeBTS();
 		arrangeTerminals();
 		searchBTSsInRangeOfTerminals();
-		printTerminalsAutOfRangeNumber();
+		//printTerminalsAutOfRangeNumber();
 	}
 
 	/*public Area() {		
@@ -124,7 +124,7 @@ public class Area extends JComponent {
 		return terminals;
 	}
 
-	public void paintComponent(Graphics g) {
+	/*public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
 		Rectangle2D rect;
@@ -148,11 +148,11 @@ public class Area extends JComponent {
 			g2.draw(rect);
 		}
 
-		/*bruteAllocation();
-		colorTerminals(g2);*/
+		bruteAllocation();
+		colorTerminals(g2);
 		colorTerminalsInRangeOfBts(g2);
 
-	}
+	}*/
 
 	private void searchBTSsInRangeOfTerminals() {
 		for (Terminal t : terminals) {

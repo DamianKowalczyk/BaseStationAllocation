@@ -186,9 +186,46 @@ public class BaseStationAllocation extends JFrame {
 		
 		/* Arrange elements into area, and print them  */
 		areaPanel.setLayout(new GridLayout(1, 1));
-		Area cityArea = new Area();
-		areaPanel.add(cityArea);
+		GraphicalArea gArea = new GraphicalArea();
+		areaPanel.add(gArea);
 	}
+	
+	class GraphicalArea extends JPanel {
+		Area cityArea = new Area();
+			
+		@Override
+		public void paintComponent(Graphics g) {			
+			Graphics2D g2 = (Graphics2D) g;
+			
+			Rectangle2D rect;
+			float r;
+			/*draw all base stations*/
+			for (BaseTransceiverStation b : cityArea.getBaseStations()) {
+				g2.setPaint(b.getColor());
+				rect = new Rectangle2D.Float(b.getBtsPosition().getX(), b
+						.getBtsPosition().getY(), 5, 10);
+				g2.draw(rect);
+				g2.fill(rect);
+				r = b.getSignalStrength();
+				g2.draw(new Ellipse2D.Double(b.getBtsPosition().getX() - r, b
+						.getBtsPosition().getY() - r, 2 * r, 2 * r));
+			}
 
+			/*draw all terminals*/
+			g2.setPaint(Color.BLACK);		
+			for (Terminal t : cityArea.getTerminals()) {
+				rect = new Rectangle2D.Float(t.getTerminalPosition().getX(), t
+						.getTerminalPosition().getY(), 3, 3);
+				t.setGraphicalRectOfThisTerminal(rect);
+				g2.draw(rect);
+			}
+
+			//bruteAllocation();
+			//colorTerminals(g2);
+			//colorTerminalsInRangeOfBts(g2);
+		}
+		
+		
+	}
 
 }
