@@ -1,1 +1,21 @@
-2+2
+SortedSet<Terminal> terminalsInRange = new TreeSet<Terminal>();
+Terminal t1 = new Terminal(1, 1);
+Terminal t2 = new Terminal(2, 2);
+Terminal t3 = new Terminal(3, 3);
+Terminal t4 = new Terminal(4, 4);
+
+terminalsInRange.add(t1);
+terminalsInRange.add(t2);
+terminalsInRange.add(t3);
+terminalsInRange.add(t4);
+
+Terminal[] termTabl = new Terminal[4];
+Iterator iter = terminalsInRange.iterator();
+
+int i=0;
+while(iter.hasNext()){
+	termTabl[i]= (Terminal) iter.next();
+	i++;
+}
+
+termTabl

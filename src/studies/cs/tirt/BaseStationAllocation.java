@@ -2,7 +2,7 @@ package studies.cs.tirt;
 
 import java.awt.EventQueue;
 import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -23,9 +23,6 @@ import java.awt.Font;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Ellipse2D;
 
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.swing.SwingConstants;
 
@@ -177,7 +174,7 @@ public class BaseStationAllocation extends JFrame {
 		gbc_lblNewLabel_1.gridy = 11;
 		ctrPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
-		// Group the radio buttons.
+		/* Group radio buttons */
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnAlgorithm_1);
 		group.add(rdbtnAlgorithm_2);
@@ -192,11 +189,21 @@ public class BaseStationAllocation extends JFrame {
 	
 	class GraphicalArea extends JPanel {
 		Area cityArea = new Area();
+		
+		public GraphicalArea() {
+			cityArea.arrangeBTS();
+			cityArea.arrangeTerminals();
+			cityArea.searchBTSsInRangeOfTerminals();
+			//cityArea.bruteAllocationNeardestUpLeftCorner();
+			//cityArea.allocateMaxNumberOfTerminalsNeardestBTS();
+			//cityArea.allocateTerminalsFirstTerminalsNeardestAndInRangeOfOnlyOneBTS();
+			cityArea.allocateRandomizedTerminals();
+		}
 			
 		@Override
 		public void paintComponent(Graphics g) {			
 			Graphics2D g2 = (Graphics2D) g;
-			
+						
 			Rectangle2D rect;
 			float r;
 			/*draw all base stations*/
@@ -219,11 +226,58 @@ public class BaseStationAllocation extends JFrame {
 				t.setGraphicalRectOfThisTerminal(rect);
 				g2.draw(rect);
 			}
-
-			//bruteAllocation();
+			
+			colourTerminalsAoutOFrange(g2);
+			colourAllocatedTerminals(g2);
+			//greyTerminalsAoutOFrange(g2);			
 			//colorTerminals(g2);
 			//colorTerminalsInRangeOfBts(g2);
 		}
+		
+		private void colourTerminalsAoutOFrange(Graphics2D g2) {
+			g2.setColor(Color.RED);
+			for (Terminal t : cityArea.getTerminals()) {
+				if (t.getBTSInRange().isEmpty())
+					g2.fill(t.getGraphicalRectOfThisTerminal());
+			}
+		}
+		
+		private void colourAllocatedTerminals(Graphics2D g2){
+			for (Terminal t : cityArea.getTerminals()) {
+				if (t.getAllocatedBts()!=null){
+					g2.setColor(t.getAllocatedBts().getColor());
+					g2.fill(t.getGraphicalRectOfThisTerminal());
+				}				
+			}
+		}
+		
+		/*private void printTerminalsAutOfRangeNumber() {
+			countTerminalsAutOfRange();
+			numberOfTerminalsAutOfRangeLabel.setText(""
+					+ numberOfTerminalsAutOfRange);
+		}
+
+		private void colorTerminals(Graphics2D g2) {
+			for (BaseTransceiverStation bts : baseStations) {
+				g2.setColor(bts.getColor());
+				for (Terminal t : bts.getConnectedTerminals()) {
+					g2.fill(t.getGraphicalRectOfThisTerminal());
+				}
+			}
+		}
+		
+		private void colorTerminalsInRangeOfBts(Graphics2D g2){
+			for (BaseTransceiverStation bts : baseStations) {
+				g2.setColor(bts.getColor());
+				for (Terminal t : bts.getTerminalsInRange()) {
+					g2.fill(t.getGraphicalRectOfThisTerminal());
+				}
+			}
+		}*/	
+		
+		/*public void fillTerminalsOutOfRange() {
+			
+		}*/
 		
 		
 	}

@@ -14,7 +14,7 @@ public class BaseTransceiverStation implements
 
 	private float signalStrength;
 	private int numberOfAllowedTerminals;
-	private Color color;
+	private Color color;	
 	
 	private SortedSet<Terminal> terminalsInRange = new TreeSet<Terminal>();
 	private ArrayList<Terminal> connectedTerminals = new ArrayList<>();
@@ -25,8 +25,17 @@ public class BaseTransceiverStation implements
 		super();		
 		btsPosition = new Point(x, y);
 		this.signalStrength = 60.0F + rand.nextFloat() * 20.0f;
-		this.numberOfAllowedTerminals = (int) (10 + rand.nextFloat() * 6);
-		this.color = Colors.getColor((int) (rand.nextFloat() * 11));
+		/*this.numberOfAllowedTerminals = (int) (10 + rand.nextFloat() * 6);*/
+		this.numberOfAllowedTerminals = (int) (signalStrength/9 + rand.nextFloat() * 2);
+		//this.numberOfAllowedTerminals = 5;
+		/*this.color = Colors.getColor((int) (rand.nextFloat() * 11));*/
+		
+	}
+	
+	public BaseTransceiverStation(float x, float y, float signStrength, int numOfAllowedTerminals){
+		this(x,y);
+		this.signalStrength = signStrength;
+		this.numberOfAllowedTerminals = numOfAllowedTerminals;
 	}
 
 	public boolean equals(Object o) {
@@ -65,6 +74,10 @@ public class BaseTransceiverStation implements
 		this.terminalsInRange = terminalsInRange;
 	}
 
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
 	public Color getColor() {
 		return color;
 	}
@@ -77,4 +90,11 @@ public class BaseTransceiverStation implements
 		connectedTerminals.add(terminal);
 	}
 
+	public static float distanceBtwBTSandTerminal(BaseTransceiverStation bts, Terminal t){
+		return Point.calculateDistanceBetweenTwoPoints(bts.btsPosition, t.getTerminalPosition());
+	}
+	
+	public float distanceBtwBTSandTerminal(Terminal t){
+		return Point.calculateDistanceBetweenTwoPoints(btsPosition, t.getTerminalPosition());
+	}
 }

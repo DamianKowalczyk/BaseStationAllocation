@@ -27,7 +27,7 @@ public class Terminal implements Comparable<Terminal> {
 	}	
 
 	public BaseTransceiverStation getAllocatedBts() {
-		return allocatedBts;
+		return allocatedBts;		
 	}
 
 	public void setAllocatedBts(BaseTransceiverStation bts) {
@@ -48,7 +48,6 @@ public class Terminal implements Comparable<Terminal> {
 	
 	public Point getTerminalPosition() {
 		return terminalPosition;
-	}
+	}	
 	
-
 }
