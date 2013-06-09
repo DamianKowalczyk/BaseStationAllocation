@@ -1,5 +1,6 @@
 package studies.cs.tirt;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -356,5 +357,53 @@ public class Area {
 			}
 		}
 	}
+	
+	public int countAllocatedTerminals(){
+		int sum = 0;
+		for (BaseTransceiverStation bts : baseStations) {
+			sum+= bts.getConnectedTerminals().size();
+		}
+		return sum;
+	}
+	
+	public void restoreTerminalsAndBtsToStartPoint() {
+		for (Terminal t : terminals) {
+			t.setAllocatedBts(null);			
+		}
+		
+		for (BaseTransceiverStation bts : baseStations) {
+			bts.setConnectedTerminals(new ArrayList<Terminal>());
+		}		
+	}
+
+	public void setRandom(Random random) {
+		rand= random;		
+	}
+
+	public int countMaximalNumberOfTerminalsPossibleToAllocate() {
+		int sum = 0;
+		for (BaseTransceiverStation bts : baseStations) {
+			sum+= Math.min(bts.getTerminalsInRange().size(), bts.getNumberAllowedTerminals());
+		}
+		return sum;
+	}
+
+	public float countQualityOfAllocation() {
+		return ((float) countAllocatedTerminals())/countMaximalNumberOfTerminalsPossibleToAllocate();
+	}
+
+	public float countPercentOfAllocation() {
+		float sum = 0;
+		for (BaseTransceiverStation bts : baseStations) {
+			for (Terminal t : bts.getConnectedTerminals()) {
+				sum+= Point.calculateDistanceBetweenTwoPoints(bts.getBtsPosition(), t.getTerminalPosition());
+			}
+			sum/= countAllocatedTerminals();
+		}
+		return sum;
+	}
+	
+	
+		
 
 }

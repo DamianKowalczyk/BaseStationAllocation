@@ -17,7 +17,7 @@ public class BaseTransceiverStation implements
 	private Color color;	
 	
 	private SortedSet<Terminal> terminalsInRange = new TreeSet<Terminal>();
-	private ArrayList<Terminal> connectedTerminals = new ArrayList<>();
+	private ArrayList<Terminal> connectedTerminals = new ArrayList<Terminal>();
 
 	private static Random rand = new Random(13);
 	
