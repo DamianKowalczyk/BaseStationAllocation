@@ -414,6 +414,8 @@ public class Area {
 			/*numberOfRowsInMatrix+=bts.getNumberAllowedTerminals();*/
 		}
 		
+		System.out.println("sum numberOfAllowedTerminalsForAllBTS:  "+ sumNumberOfAllowedBTSForAllBTSs());
+		
 		
 		int numberOfColumnsInMatrix = 0;
 		ArrayList<Terminal> terminalsIntoMatrixForHungarianAlgorithm = new ArrayList<Terminal>();
@@ -424,9 +426,9 @@ public class Area {
 			}
 		}
 		
-		double[][] matrixForHungarianAlgorithm = new double[numberOfColumnsInMatrix][numberOfColumnsInMatrix];
+		double[][] matrixForHungarianAlgorithm = new double[numberOfRowsInMatrix][numberOfColumnsInMatrix];
 		
-		int index =0;
+		int index = 0;
 		for (BaseTransceiverStation bts : baseStations) {
 			for (int i = 0; i < bts.getNumberAllowedTerminals(); i++) {
 				for (int j = 0; j < numberOfColumnsInMatrix; j++) {
@@ -436,14 +438,71 @@ public class Area {
 			}
 		}
 		
+		System.out.println(matrixForHungarianAlgorithm.length+"  "+matrixForHungarianAlgorithm[0].length);
+		
 		 int[][] resultsFromHungarianAlgorithm = HungarianAlgorithm.hgAlgorithm(matrixForHungarianAlgorithm, "min");
 		 
-		 Terminal term;
+		 Terminal terminalChoosenByHungarAlgorithm;
+		 BaseTransceiverStation currentBts;
 		 for (int i = 0; i < resultsFromHungarianAlgorithm.length; i++) {
-			term = terminalsIntoMatrixForHungarianAlgorithm.get(resultsFromHungarianAlgorithm[i][1]);
-			baseStationInMatrixForHungarianAlg.get(i).connectTerminal(term);
+			terminalChoosenByHungarAlgorithm = terminalsIntoMatrixForHungarianAlgorithm.get(resultsFromHungarianAlgorithm[i][1]);
+			currentBts= baseStationInMatrixForHungarianAlg.get(i);
+			if(currentBts.distanceBtwBTSandTerminal(terminalChoosenByHungarAlgorithm)<=currentBts.getSignalStrength()){
+				currentBts.connectTerminal(terminalChoosenByHungarAlgorithm);
+				terminalChoosenByHungarAlgorithm.setAllocatedBts(currentBts);
+			}			
 		}
-	}	
+	}
+	
 		
+	private int sumNumberOfAllowedBTSForAllBTSs(){
+		int numberOfRowsInMatrix = 0;		
+		for (BaseTransceiverStation bts : baseStations) {
+			numberOfRowsInMatrix+=bts.getNumberAllowedTerminals();						
+		}
+		return numberOfRowsInMatrix;
+	}
+	
+	private float calculateSmallestDistanceBTWTerminalAndBTSForAllocatedTerminals(){
+		BaseTransceiverStation bts;
+		Terminal term;
+		
+		bts = baseStations.first();
+		term = bts.getConnectedTerminals().get(0);
+		float smallestDistance = bts.distanceBtwBTSandTerminal(term);		
+		
+		float currentDistance;
+		for (BaseTransceiverStation currentBts : baseStations) {
+			for (Terminal currentTerminal : currentBts.getConnectedTerminals()) {
+				currentDistance = currentBts.distanceBtwBTSandTerminal(currentTerminal);
+				if(currentDistance<smallestDistance)
+					smallestDistance = currentDistance;
+			}
+		}
+		
+		return smallestDistance;
+	}
+	
+	private float calculateBiggestDistanceBTWTerminalAndBTSForAllocatedTerminals(){
+		BaseTransceiverStation bts;
+		Terminal term;
+		
+		bts = baseStations.first();
+		term = bts.getConnectedTerminals().get(0);
+		float biggestDistance = bts.distanceBtwBTSandTerminal(term);		
+		
+		float currentDistance;
+		for (BaseTransceiverStation currentBts : baseStations) {
+			for (Terminal currentTerminal : currentBts.getConnectedTerminals()) {
+				currentDistance = currentBts.distanceBtwBTSandTerminal(currentTerminal);
+				if(currentDistance>biggestDistance)
+					biggestDistance = currentDistance;
+			}
+		}
+		
+		return biggestDistance;
+	}
+	
+	
 
 }

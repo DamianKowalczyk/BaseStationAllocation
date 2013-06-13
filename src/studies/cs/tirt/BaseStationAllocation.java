@@ -55,7 +55,9 @@ public class BaseStationAllocation extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BaseStationAllocation frame = new BaseStationAllocation("");
+					BaseStationAllocation frame = new BaseStationAllocation("HungarianAlgorithm");
+					
+					//BaseStationAllocation frame = new BaseStationAllocation("HungarianAlgorithm");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -294,10 +296,13 @@ public class BaseStationAllocation extends JFrame {
 		group.add(firstTerminalsInRangeOfOneBts);
 		group.add(maxNumberRandomized);
 		
+		
+		/*code for setting area and prepare terminals and BTS*/
 		cityArea.setRandom(new Random(13));
 		cityArea.arrangeBTS();
 		cityArea.arrangeTerminals();
 		cityArea.searchBTSsInRangeOfTerminals();
+		
 		lblNewLabel_3.setText(""+cityArea.getBaseStations().size());
 		lblNewLabel_5.setText(""+cityArea.getTerminals().size());
 		lblNewLabel_7.setText(""+cityArea.countTerminalsAutOfRange());		
@@ -320,7 +325,8 @@ public class BaseStationAllocation extends JFrame {
 		case "maxNumberRandomized":
 			cityArea.allocateRandomizedTerminals();
 			break;
-			
+		case "HungarianAlgorithm":
+			cityArea.allocateTErminalsUsingHungarianAlgorithm();
 		default:
 			break;
 		}
