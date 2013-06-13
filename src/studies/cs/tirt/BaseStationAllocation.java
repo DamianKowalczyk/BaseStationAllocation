@@ -41,7 +41,7 @@ public class BaseStationAllocation extends JFrame {
 	GraphicalArea gArea = new GraphicalArea();
 	JPanel areaPanel = new JPanel();
 	
-	
+	private String algorithmName = "HungarianAlgorithm";
 
 	/**
 	 * Launch the application.
@@ -55,7 +55,8 @@ public class BaseStationAllocation extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BaseStationAllocation frame = new BaseStationAllocation("HungarianAlgorithm");
+					String algorithmName = "HungarianAlgorithm";
+					BaseStationAllocation frame = new BaseStationAllocation(algorithmName);
 					
 					//BaseStationAllocation frame = new BaseStationAllocation("HungarianAlgorithm");
 					frame.setVisible(true);
@@ -70,7 +71,7 @@ public class BaseStationAllocation extends JFrame {
 	 * Create the frame.
 	 */
 	public BaseStationAllocation(String algorithmName) {
-				
+		this.algorithmName = algorithmName;
 		/* create GUI */
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				BaseStationAllocation.class
@@ -331,10 +332,24 @@ public class BaseStationAllocation extends JFrame {
 			break;
 		}
 	
-		
+		/*show informations*/
 		lblNewLabel_9.setText(""+cityArea.countAllocatedTerminals());
 		percentAllocatedTerminals.setText(""+cityArea.countQualityOfAllocation());
-		averageDistance.setText(""+cityArea.countPercentOfAllocation());
+		averageDistance.setText(""+cityArea.countAverageDistanceBtwTerminalAndBTS());
+		
+		System.out.println("Algorithm name:" +algorithmName);
+		System.out.println("numberOfBTS:" +cityArea.getBaseStations().size());
+		System.out.println("numberOfTerminalsInRangeOf:  " + cityArea.countTerminalsInRange());
+		System.out.println("averageDistanceBtwTerminalAndBTS:  "+cityArea.countAverageDistanceBtwTerminalAndBTS());
+		System.out.println("minDistanceBtwTerminalAndBTS:  "+cityArea.calculateSmallestDistanceBTWTerminalAndBTSForAllocatedTerminals());
+		System.out.println("maxDistanceBtwTerminalAndBTS:  "+cityArea.calculateBiggestDistanceBTWTerminalAndBTSForAllocatedTerminals());
+		System.out.println("the qualityOfAllocation (numberOfAllocated/possibleNumberToAllocate:  "+cityArea.countQualityOfAllocation());
+		System.out.println("numberOfAllocatedTerminals:  "+cityArea.countAllocatedTerminals());
+		System.out.println("possibleToAllocate:  "+cityArea.countMaximalNumberOfTerminalsPossibleToAllocate());
+		System.out.println("TotalNumberOfAllowedTerminalsFor:  "+cityArea.sumNumberOfAllowedBTSForAllBTSs());
+		System.out.println("durationOfAlgorithm:  "+cityArea.calculateDurationOfAlgorithm());
+		
+		
 		
 		/* Arrange elements into area, and print them  */
 		/*areaPanel.setLayout(new GridLayout(1, 1));*/

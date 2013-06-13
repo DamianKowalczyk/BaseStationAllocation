@@ -9,6 +9,19 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class Area {
+	
+	private int numberOf_BTS_onArea = 15;
+	private int numberOf_TerminalsOnArea = 100;
+//	private int numberOf_TerminalsOnArea = 150;
+//	private int numberOf_TerminalsOnArea = 200;
+//	private int numberOf_TerminalsOnArea = 225;
+//	private int numberOf_TerminalsOnArea = 230;
+//	private int numberOf_TerminalsOnArea = 240;
+//	private int numberOf_TerminalsOnArea = 250;
+//	private int numberOf_TerminalsOnArea = 275;
+//	private int numberOf_TerminalsOnArea = 300;
+//	private int numberOf_TerminalsOnArea = 325;
+//	private int numberOf_TerminalsOnArea = 350;
 
 	private float areaLengthX = 1000F;
 	private float areaLengthY = 700F;
@@ -22,6 +35,9 @@ public class Area {
 	private Random rand2 = new Random(23);
 	
 	private int colorIndex = 0;
+	
+	private double startTime = 0.0;
+	private double endTime = 0.0;
 
 	public Area() {
 	}
@@ -33,7 +49,7 @@ public class Area {
 	}
 
 	public void arrangeBTS() {
-		arrangeNBaseStations(463, 347, 230, 15);
+		arrangeNBaseStations(463, 347, 230, numberOf_BTS_onArea);
 		for (BaseTransceiverStation bts : baseStations) {
 			bts.setColor(Colors.getColor(colorIndex++));
 		}
@@ -42,7 +58,7 @@ public class Area {
 	public void arrangeTerminals() {
 		// arangeNTerminalsInAreaCircle(443, 340, 200, 200);
 		// arangeNTerminalsInSquareArea(443, 340, 250, 250);
-		arangeNTerminalsInSquareArea(443, 340, 250, 300);
+		arangeNTerminalsInSquareArea(443, 340, 250, numberOf_TerminalsOnArea);
 	}
 
 	private void arrangeNBaseStations(float x, float y, float radius, int N) {
@@ -153,9 +169,11 @@ public class Area {
 
 	// it will allocate max number of nearby terminals for each Base Station
 	void bruteAllocationNeardestUpLeftCorner() {
+		startTime = System.nanoTime();
 		for (BaseTransceiverStation currentBts : baseStations) {
 			allocateMaxNumberTerminalsInRangeNeardestUpLeftCorner(currentBts);
 		}
+		endTime = System.nanoTime();
 	}
 
 	private void allocateMaxNumberTerminalsInRangeNeardestUpLeftCorner(
@@ -184,6 +202,7 @@ public class Area {
 	}
 
 	void allocateMaxNumberOfTerminalsNeardestBTS() {
+		startTime = System.nanoTime();
 		for (BaseTransceiverStation currentBts : baseStations) {
 			Terminal tmpTerminal;
 			Terminal[] sortedTerminalsInRange = sortTerminalsFromNeardestToBTS(
@@ -207,6 +226,7 @@ public class Area {
 				index++;
 			}
 		}
+		endTime = System.nanoTime();
 	}
 
 	private Terminal[] sortTerminalsFromNeardestToBTS(
@@ -237,7 +257,7 @@ public class Area {
 	}
 
 	private BaseTransceiverStation chooseBTSWithTheWeaknesSignalStrengthInRangeOfBTS(
-			Terminal t) {
+			Terminal t) {		
 		BaseTransceiverStation[] sortedBTS = new BaseTransceiverStation[t
 				.getBTSInRange().size()];
 
@@ -277,6 +297,7 @@ public class Area {
 	}
 
 	void allocateTerminalsFirstTerminalsNeardestAndInRangeOfOnlyOneBTS() {
+		startTime = System.nanoTime();
 		for (BaseTransceiverStation currentBts : baseStations) {
 			Terminal tmpTerminal;
 			Terminal[] sortedTerminalsInRange = sortTerminalsFromNeardestToBTS(
@@ -314,10 +335,12 @@ public class Area {
 				}					
 			}
 		}
+		endTime = System.nanoTime();
 	}
 	
 	
 	void allocateRandomizedTerminals(){
+		startTime = System.nanoTime();
 		for (BaseTransceiverStation currentBts : baseStations) {
 			Terminal tmpTerminal;
 			Terminal[] sortedTerminalsInRange = sortTerminalsFromNeardestToBTS(
@@ -356,6 +379,7 @@ public class Area {
 				counter++;
 			}
 		}
+		endTime = System.nanoTime();
 	}
 	
 	public int countAllocatedTerminals(){
@@ -392,7 +416,7 @@ public class Area {
 		return ((float) countAllocatedTerminals())/countMaximalNumberOfTerminalsPossibleToAllocate();
 	}
 
-	public float countPercentOfAllocation() {
+	public float countAverageDistanceBtwTerminalAndBTS() {
 		float sum = 0;
 		for (BaseTransceiverStation bts : baseStations) {
 			for (Terminal t : bts.getConnectedTerminals()) {
@@ -414,7 +438,7 @@ public class Area {
 			/*numberOfRowsInMatrix+=bts.getNumberAllowedTerminals();*/
 		}
 		
-		System.out.println("sum numberOfAllowedTerminalsForAllBTS:  "+ sumNumberOfAllowedBTSForAllBTSs());
+		//System.out.println("sum numberOfAllowedTerminalsForAllBTS:  "+ sumNumberOfAllowedBTSForAllBTSs());
 		
 		
 		int numberOfColumnsInMatrix = 0;
@@ -426,7 +450,15 @@ public class Area {
 			}
 		}
 		
-		double[][] matrixForHungarianAlgorithm = new double[numberOfRowsInMatrix][numberOfColumnsInMatrix];
+		float biggestDistance = 0;
+		int newNumberOfColumns = numberOfColumnsInMatrix;
+		if(numberOfRowsInMatrix>numberOfColumnsInMatrix){
+			biggestDistance = calculateBiggestDistanceForHungarianAlgorithm();
+			newNumberOfColumns = numberOfRowsInMatrix;
+		}
+		
+		startTime = System.nanoTime();		
+		double[][] matrixForHungarianAlgorithm = new double[numberOfRowsInMatrix][newNumberOfColumns];
 		
 		int index = 0;
 		for (BaseTransceiverStation bts : baseStations) {
@@ -434,28 +466,39 @@ public class Area {
 				for (int j = 0; j < numberOfColumnsInMatrix; j++) {
 					matrixForHungarianAlgorithm[index][j] = bts.distanceBtwBTSandTerminal(terminalsIntoMatrixForHungarianAlgorithm.get(j));
 				}
+				if(newNumberOfColumns==numberOfRowsInMatrix)
+					for (int j = numberOfColumnsInMatrix; j < newNumberOfColumns; j++) {
+						matrixForHungarianAlgorithm[index][j] = biggestDistance;
+				}	
 				index++;
 			}
 		}
 		
-		System.out.println(matrixForHungarianAlgorithm.length+"  "+matrixForHungarianAlgorithm[0].length);
 		
+			
+		
+		//System.out.println(matrixForHungarianAlgorithm.length+"  "+matrixForHungarianAlgorithm[0].length);
+
+			
 		 int[][] resultsFromHungarianAlgorithm = HungarianAlgorithm.hgAlgorithm(matrixForHungarianAlgorithm, "min");
 		 
 		 Terminal terminalChoosenByHungarAlgorithm;
 		 BaseTransceiverStation currentBts;
 		 for (int i = 0; i < resultsFromHungarianAlgorithm.length; i++) {
-			terminalChoosenByHungarAlgorithm = terminalsIntoMatrixForHungarianAlgorithm.get(resultsFromHungarianAlgorithm[i][1]);
-			currentBts= baseStationInMatrixForHungarianAlg.get(i);
-			if(currentBts.distanceBtwBTSandTerminal(terminalChoosenByHungarAlgorithm)<=currentBts.getSignalStrength()){
-				currentBts.connectTerminal(terminalChoosenByHungarAlgorithm);
-				terminalChoosenByHungarAlgorithm.setAllocatedBts(currentBts);
-			}			
+			if(resultsFromHungarianAlgorithm[i][1]<terminalsIntoMatrixForHungarianAlgorithm.size()){ 
+				terminalChoosenByHungarAlgorithm = terminalsIntoMatrixForHungarianAlgorithm.get(resultsFromHungarianAlgorithm[i][1]);
+				currentBts= baseStationInMatrixForHungarianAlg.get(i);
+				if(currentBts.distanceBtwBTSandTerminal(terminalChoosenByHungarAlgorithm)<=currentBts.getSignalStrength()){
+					currentBts.connectTerminal(terminalChoosenByHungarAlgorithm);
+					terminalChoosenByHungarAlgorithm.setAllocatedBts(currentBts);
+				}
+			}
 		}
+		 endTime = System.nanoTime();
 	}
 	
 		
-	private int sumNumberOfAllowedBTSForAllBTSs(){
+	public int sumNumberOfAllowedBTSForAllBTSs(){
 		int numberOfRowsInMatrix = 0;		
 		for (BaseTransceiverStation bts : baseStations) {
 			numberOfRowsInMatrix+=bts.getNumberAllowedTerminals();						
@@ -463,7 +506,7 @@ public class Area {
 		return numberOfRowsInMatrix;
 	}
 	
-	private float calculateSmallestDistanceBTWTerminalAndBTSForAllocatedTerminals(){
+	public float calculateSmallestDistanceBTWTerminalAndBTSForAllocatedTerminals(){
 		BaseTransceiverStation bts;
 		Terminal term;
 		
@@ -483,7 +526,29 @@ public class Area {
 		return smallestDistance;
 	}
 	
-	private float calculateBiggestDistanceBTWTerminalAndBTSForAllocatedTerminals(){
+	
+	private float calculateBiggestDistanceForHungarianAlgorithm(){
+		BaseTransceiverStation bts;
+		Terminal term;
+		
+		bts = baseStations.first();
+		term = bts.getTerminalsInRange().first();
+		float biggestDistance = bts.distanceBtwBTSandTerminal(term);		
+		
+		float currentDistance;
+		for (BaseTransceiverStation currentBts : baseStations) {
+			for (Terminal currentTerminal : currentBts.getTerminalsInRange()) {
+				currentDistance = currentBts.distanceBtwBTSandTerminal(currentTerminal);
+				if(currentDistance>biggestDistance)
+					biggestDistance = currentDistance;
+			}
+		}
+		
+		return biggestDistance;
+	}
+	
+	
+	public float calculateBiggestDistanceBTWTerminalAndBTSForAllocatedTerminals(){
 		BaseTransceiverStation bts;
 		Terminal term;
 		
@@ -501,8 +566,10 @@ public class Area {
 		}
 		
 		return biggestDistance;
+	}	
+	
+	public double calculateDurationOfAlgorithm(){
+		return endTime - startTime;
 	}
-	
-	
 
 }
