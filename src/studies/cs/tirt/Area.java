@@ -11,17 +11,12 @@ import java.util.TreeSet;
 public class Area {
 	
 	private int numberOf_BTS_onArea = 15;
-	private int numberOf_TerminalsOnArea = 100;
+//	private int numberOf_TerminalsOnArea = 100;
 //	private int numberOf_TerminalsOnArea = 150;
 //	private int numberOf_TerminalsOnArea = 200;
-//	private int numberOf_TerminalsOnArea = 225;
-//	private int numberOf_TerminalsOnArea = 230;
-//	private int numberOf_TerminalsOnArea = 240;
 //	private int numberOf_TerminalsOnArea = 250;
-//	private int numberOf_TerminalsOnArea = 275;
-//	private int numberOf_TerminalsOnArea = 300;
-//	private int numberOf_TerminalsOnArea = 325;
-//	private int numberOf_TerminalsOnArea = 350;
+	private int numberOf_TerminalsOnArea = 300;
+
 
 	private float areaLengthX = 1000F;
 	private float areaLengthY = 700F;
@@ -421,9 +416,9 @@ public class Area {
 		for (BaseTransceiverStation bts : baseStations) {
 			for (Terminal t : bts.getConnectedTerminals()) {
 				sum+= Point.calculateDistanceBetweenTwoPoints(bts.getBtsPosition(), t.getTerminalPosition());
-			}
-			sum/= countAllocatedTerminals();
+			}			
 		}
+		sum/= countAllocatedTerminals();
 		return sum;
 	}
 	

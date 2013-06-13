@@ -41,7 +41,7 @@ public class BaseStationAllocation extends JFrame {
 	GraphicalArea gArea = new GraphicalArea();
 	JPanel areaPanel = new JPanel();
 	
-	private String algorithmName = "HungarianAlgorithm";
+	private String algorithmName = "";
 
 	/**
 	 * Launch the application.
@@ -55,7 +55,11 @@ public class BaseStationAllocation extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					String algorithmName = "HungarianAlgorithm";
+//					String algorithmName = "HungarianAlgorithm";
+//					String algorithmName = "maxNumNearestUpLeftCorner";
+//					String algorithmName = "maxNumberNearestBts";
+//					String algorithmName = "firstTerminalsInRangeOfOneBts";
+					String algorithmName = "maxNumberRandomized";
 					BaseStationAllocation frame = new BaseStationAllocation(algorithmName);
 					
 					//BaseStationAllocation frame = new BaseStationAllocation("HungarianAlgorithm");
@@ -76,7 +80,7 @@ public class BaseStationAllocation extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				BaseStationAllocation.class
 						.getResource("/studies/cs/tirt/gui/pictures/BS.png")));
-		setTitle("BaseStationAllocation 1.0");
+		setTitle(algorithmName);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1137, 681);
 
@@ -337,17 +341,29 @@ public class BaseStationAllocation extends JFrame {
 		percentAllocatedTerminals.setText(""+cityArea.countQualityOfAllocation());
 		averageDistance.setText(""+cityArea.countAverageDistanceBtwTerminalAndBTS());
 		
-		System.out.println("Algorithm name:" +algorithmName);
-		System.out.println("numberOfBTS:" +cityArea.getBaseStations().size());
-		System.out.println("numberOfTerminalsInRangeOf:  " + cityArea.countTerminalsInRange());
-		System.out.println("averageDistanceBtwTerminalAndBTS:  "+cityArea.countAverageDistanceBtwTerminalAndBTS());
-		System.out.println("minDistanceBtwTerminalAndBTS:  "+cityArea.calculateSmallestDistanceBTWTerminalAndBTSForAllocatedTerminals());
-		System.out.println("maxDistanceBtwTerminalAndBTS:  "+cityArea.calculateBiggestDistanceBTWTerminalAndBTSForAllocatedTerminals());
-		System.out.println("the qualityOfAllocation (numberOfAllocated/possibleNumberToAllocate:  "+cityArea.countQualityOfAllocation());
-		System.out.println("numberOfAllocatedTerminals:  "+cityArea.countAllocatedTerminals());
-		System.out.println("possibleToAllocate:  "+cityArea.countMaximalNumberOfTerminalsPossibleToAllocate());
-		System.out.println("TotalNumberOfAllowedTerminalsFor:  "+cityArea.sumNumberOfAllowedBTSForAllBTSs());
-		System.out.println("durationOfAlgorithm:  "+cityArea.calculateDurationOfAlgorithm());
+//		System.out.println("Algorithm name:" +algorithmName);
+//		System.out.println("numberOfBTS:" +cityArea.getBaseStations().size());
+//		System.out.println("numberOfTerminalsInRangeOf:  " + cityArea.countTerminalsInRange());
+//		System.out.println("averageDistanceBtwTerminalAndBTS:  "+cityArea.countAverageDistanceBtwTerminalAndBTS());
+//		System.out.println("minDistanceBtwTerminalAndBTS:  "+cityArea.calculateSmallestDistanceBTWTerminalAndBTSForAllocatedTerminals());
+//		System.out.println("maxDistanceBtwTerminalAndBTS:  "+cityArea.calculateBiggestDistanceBTWTerminalAndBTSForAllocatedTerminals());
+//		System.out.println("the qualityOfAllocation (numberOfAllocated/possibleNumberToAllocate:  "+cityArea.countQualityOfAllocation());
+//		System.out.println("numberOfAllocatedTerminals:  "+cityArea.countAllocatedTerminals());
+//		System.out.println("possibleToAllocate:  "+cityArea.countMaximalNumberOfTerminalsPossibleToAllocate());
+//		System.out.println("TotalNumberOfAllowedTerminalsFor:  "+cityArea.sumNumberOfAllowedBTSForAllBTSs());
+//		System.out.println("durationOfAlgorithm:  "+cityArea.calculateDurationOfAlgorithm());
+		
+		System.out.println(algorithmName);
+		System.out.println(cityArea.getBaseStations().size());
+		System.out.println(cityArea.countTerminalsInRange());
+		System.out.println(cityArea.countAverageDistanceBtwTerminalAndBTS());
+		System.out.println(cityArea.calculateSmallestDistanceBTWTerminalAndBTSForAllocatedTerminals());
+		System.out.println(cityArea.calculateBiggestDistanceBTWTerminalAndBTSForAllocatedTerminals());
+		System.out.println(cityArea.countQualityOfAllocation());
+		System.out.println(cityArea.countAllocatedTerminals());
+		System.out.println(cityArea.countMaximalNumberOfTerminalsPossibleToAllocate());
+		System.out.println(cityArea.sumNumberOfAllowedBTSForAllBTSs());
+		System.out.println(cityArea.calculateDurationOfAlgorithm());
 		
 		
 		
