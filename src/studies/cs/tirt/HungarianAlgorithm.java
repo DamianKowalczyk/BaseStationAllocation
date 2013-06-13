@@ -546,21 +546,22 @@ public class HungarianAlgorithm {
 	public static void main(String[] args) 
 	{
 		//Below enter "max" or "min" to find maximum sum or minimum sum assignment.
-		String sumType = "max";		
+//		String sumType = "max";	
+		String sumType = "min";	
 				
 		//Hard-coded example.
-		//double[][] array =
-		//{
-		//		{1, 2, 3},
-		//		{2, 4, 6},
-		//		{3, 6, 9}
-		//};
+		double[][] array =
+		{
+				{1, 2, 3},
+				{2, 4, 6},
+				{3, 6, 9}
+		};
 		
 		//<UNCOMMENT> BELOW AND COMMENT BLOCK ABOVE TO USE A RANDOMLY GENERATED MATRIX
-		int numOfRows = readInput("How many rows for the matrix? ");
-		int numOfCols = readInput("How many columns for the matrix? ");
-		double[][] array = new double[numOfRows][numOfCols];
-		generateRandomArray(array, "random");	//All elements within [0,1].
+//		int numOfRows = readInput("How many rows for the matrix? ");
+//		int numOfCols = readInput("How many columns for the matrix? ");
+//		double[][] array = new double[numOfRows][numOfCols];
+//		generateRandomArray(array, "random");	//All elements within [0,1].
 		//</UNCOMMENT>
 		
 		if (array.length > array[0].length)

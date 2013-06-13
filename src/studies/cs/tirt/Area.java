@@ -403,6 +403,48 @@ public class Area {
 		return sum;
 	}
 	
+	public void allocateTErminalsUsingHungarianAlgorithm(){
+		int numberOfRowsInMatrix = 0;
+		ArrayList<BaseTransceiverStation> baseStationInMatrixForHungarianAlg = new ArrayList<BaseTransceiverStation>();
+		for (BaseTransceiverStation bts : baseStations) {
+			for (int i = 0; i < bts.getNumberAllowedTerminals(); i++) {
+				baseStationInMatrixForHungarianAlg.add(bts);
+				numberOfRowsInMatrix++;
+			}
+			/*numberOfRowsInMatrix+=bts.getNumberAllowedTerminals();*/
+		}
+		
+		
+		int numberOfColumnsInMatrix = 0;
+		ArrayList<Terminal> terminalsIntoMatrixForHungarianAlgorithm = new ArrayList<Terminal>();
+		for (Terminal terminal : terminals) {
+			if(terminal.getBTSInRange().size()!=0){
+				terminalsIntoMatrixForHungarianAlgorithm.add(terminal);
+				numberOfColumnsInMatrix++;
+			}
+		}
+		
+		double[][] matrixForHungarianAlgorithm = new double[numberOfColumnsInMatrix][numberOfColumnsInMatrix];
+		
+		int index =0;
+		for (BaseTransceiverStation bts : baseStations) {
+			for (int i = 0; i < bts.getNumberAllowedTerminals(); i++) {
+				for (int j = 0; j < numberOfColumnsInMatrix; j++) {
+					matrixForHungarianAlgorithm[index][j] = bts.distanceBtwBTSandTerminal(terminalsIntoMatrixForHungarianAlgorithm.get(j));
+				}
+				index++;
+			}
+		}
+		
+		 int[][] resultsFromHungarianAlgorithm = HungarianAlgorithm.hgAlgorithm(matrixForHungarianAlgorithm, "min");
+		 
+		 Terminal term;
+		 for (int i = 0; i < resultsFromHungarianAlgorithm.length; i++) {
+			term = terminalsIntoMatrixForHungarianAlgorithm.get(resultsFromHungarianAlgorithm[i][1]);
+			baseStationInMatrixForHungarianAlg.get(i).connectTerminal(term);
+		}
+	}
+	
 	
 		
 
