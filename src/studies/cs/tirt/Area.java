@@ -443,9 +443,7 @@ public class Area {
 			term = terminalsIntoMatrixForHungarianAlgorithm.get(resultsFromHungarianAlgorithm[i][1]);
 			baseStationInMatrixForHungarianAlg.get(i).connectTerminal(term);
 		}
-	}
-	
-	
+	}	
 		
 
 }
